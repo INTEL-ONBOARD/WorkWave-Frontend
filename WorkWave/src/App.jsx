@@ -11,6 +11,12 @@ import Dashboard from './pages/dashboard/dashboard';
 import Home from './pages/dashboard/Home'; 
 import Settings from './pages/dashboard/settings'; 
 import Profile from './pages/dashboard/profile'; 
+import Purchases from './pages/dashboard/purchases'; 
+import Orders from './pages/dashboard/orders'; 
+import Services from './pages/dashboard/services'; 
+import UserSettings from './pages/dashboard/UserSettings'; 
+
+
 
 const App = () => {
     return (
@@ -24,9 +30,11 @@ const App = () => {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/signUp" element={<SignUp />} />
                         <Route path="/dashboard" element={<Dashboard />}>
-                            <Route path="home" element={<Home />} />
-                            <Route path="settings" element={<Settings />} />
-                            <Route path="profile" element={<Profile />} />
+                            <Route path="" element={<Home />} />
+                            <Route path="purchases" element={<Purchases />} />
+                            <Route path="orders" element={<Orders />} />
+                            <Route path="services" element={<Services />} />
+                            <Route path="usersettings" element={<UserSettings />} />
                         </Route>
                     </Routes>
                 </main>

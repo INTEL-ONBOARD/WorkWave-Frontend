@@ -6,17 +6,17 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import SignUp from './pages/SignUp';
-import Dashboard from './pages/dashboard/dashboard'; // Make sure this path is correct
+import Dashboard from './pages/dashboard/dashboard'; 
 
-import Home from './pages/dashboard/Home'; // Dashboard Home content
-import Settings from './pages/dashboard/settings'; // Dashboard Settings content
-import Profile from './pages/dashboard/profile'; // Dashboard Profile content
+import Home from './pages/dashboard/Home'; 
+import Settings from './pages/dashboard/settings'; 
+import Profile from './pages/dashboard/profile'; 
 
 const App = () => {
     return (
         <Router>
             <div className="min-h-screen flex flex-col">
-                <Navbar />
+                {/* <Navbar /> */}
                 <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Login />} />

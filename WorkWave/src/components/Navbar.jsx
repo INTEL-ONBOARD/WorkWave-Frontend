@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaShoppingCart, FaEnvelope, FaInfoCircle } from 'react-icons/fa'; // Updated icons
+import { FaHome, FaShoppingCart, FaEnvelope, FaInfoCircle } from 'react-icons/fa'; 
 
 const Navbar = () => {
     return (
         <nav className="bg-[#E8A427] py-4">
             <div className="container mx-auto flex justify-between items-center px-6">
-                {/* WorkWave Logo */}
+
                 <div className="text-3xl font-bold text-white">
                     WorkWave
                 </div>      
 
-                {/* Navigation Links */}
+
                 <div className="flex space-x-8">
                     <Link to="/" className="flex items-center text-white hover:text-gray-200">
                         <FaHome size={24} className="mr-2" />

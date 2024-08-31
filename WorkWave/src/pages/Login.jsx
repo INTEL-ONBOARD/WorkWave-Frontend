@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate();
 
-    const handleSignUpClick = () => {
-        navigate('/signup'); // Redirect to the SignUp page
-    };
+        // const handleSignUpClick = () => {
+        //     navigate('/signup'); // Redirect to the SignUp page
+        // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle login logic here
     };
+
+    console.log("it'sloading")
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-white via-white to-gray-100 pt-20">

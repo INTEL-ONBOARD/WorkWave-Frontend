@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaMarketPlace, FaEnvelope, FaInfoCircle } from 'react-icons/fa'; // Updated icons
+import { FaHome, FaShoppingCart, FaEnvelope, FaInfoCircle } from 'react-icons/fa'; // Updated icons
 
 const Navbar = () => {
     return (
@@ -9,7 +9,7 @@ const Navbar = () => {
                 {/* WorkWave Logo */}
                 <div className="text-3xl font-bold text-white">
                     WorkWave
-                </div>
+                </div>      
 
                 {/* Navigation Links */}
                 <div className="flex space-x-8">
@@ -18,7 +18,7 @@ const Navbar = () => {
                         Home
                     </Link>
                     <Link to="/marketplace" className="flex items-center text-white hover:text-gray-200">
-                        <FaMarketPlace size={24} className="mr-2" />
+                        <FaShoppingCart size={24} className="mr-2" />
                         Market Place
                     </Link>
                     <Link to="/contact" className="flex items-center text-white hover:text-gray-200">

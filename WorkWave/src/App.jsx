@@ -6,6 +6,11 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import SignUp from './pages/SignUp';
+import Dashboard from './pages/dashboard/dashboard'; // Make sure this path is correct
+
+import Home from './pages/dashboard/Home'; // Dashboard Home content
+import Settings from './pages/dashboard/settings'; // Dashboard Settings content
+import Profile from './pages/dashboard/profile'; // Dashboard Profile content
 
 const App = () => {
     return (
@@ -14,10 +19,15 @@ const App = () => {
                 <Navbar />
                 <main className="flex-grow">
                     <Routes>
-                        <Route exact path="/" element={<Login />} />
+                        <Route path="/" element={<Login />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/signUp" element={<SignUp />} />
+                        <Route path="/dashboard" element={<Dashboard />}>
+                            <Route path="home" element={<Home />} />
+                            <Route path="settings" element={<Settings />} />
+                            <Route path="profile" element={<Profile />} />
+                        </Route>
                     </Routes>
                 </main>
                 <Footer />

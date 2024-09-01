@@ -1,5 +1,7 @@
-import React from 'react';
+// App.jsx
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
 
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -7,7 +9,7 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import SignUp from './pages/SignUp';
-import Selection from './pages/Selection'; // Import Selection page
+import Selection from './pages/Selection';
 import Dashboard from './pages/dashboard/dashboard'; 
 import Home from './pages/dashboard/Home'; 
 import Purchases from './pages/dashboard/purchases'; 
@@ -17,31 +19,50 @@ import UserSettings from './pages/dashboard/UserSettings';
 import MarketPlace from './pages/MarketPlace';
 import CardDetail from './pages/CardDetail';
 import PaymentPage from './pages/Payment';
+import HomePage from './pages/Home';
 
 const App = () => {
+    // State to track if the user is logged in
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // Check session storage on component mount
+    useEffect(() => {
+        const loggedInStatus = sessionStorage.getItem('isLoggedIn');
+        if (loggedInStatus === 'true') {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    // Function to handle logout
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        sessionStorage.removeItem('isLoggedIn'); // Remove login status from session storage
+    };
+
     return (
         <Router>
             <Routes>
-                <Route path="*" element={<Layout />} />
+                <Route path="*" element={<Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} onLogout={handleLogout} />} />
             </Routes>
         </Router>
     );
 }
 
-const Layout = () => {
+const Layout = ({ isLoggedIn, setIsLoggedIn, onLogout }) => {
     const location = useLocation();
     const isDashboard = location.pathname.startsWith('/dashboard');
-    
+
     return (
         <div className="min-h-screen flex flex-col">
-            {!isDashboard && <Navbar />}
+            {!isDashboard && <Navbar isLoggedIn={isLoggedIn} onLogout={onLogout} />}
             <main className="flex-grow">
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/" element={<HomePage/>} />
+                    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/signUp" element={<SignUp />} />
-                    <Route path="/selection" element={<Selection />} /> {/* Added Selection route */}
+                    <Route path="/selection" element={<Selection />} />
                     <Route path="/marketplace" element={<MarketPlace />} />
                     <Route path="/marketplace/:cardName" element={<CardDetail />} />
                     <Route path="/marketplace/:authorName/payment" element={<PaymentPage />} />

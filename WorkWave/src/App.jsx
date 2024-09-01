@@ -2,10 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import SignUp from './pages/SignUp';
+import Selection from './pages/Selection'; // Import Selection page
 import Dashboard from './pages/dashboard/dashboard'; 
 import Home from './pages/dashboard/Home'; 
 import Purchases from './pages/dashboard/purchases'; 
@@ -15,7 +17,6 @@ import UserSettings from './pages/dashboard/UserSettings';
 import MarketPlace from './pages/MarketPlace';
 import CardDetail from './pages/CardDetail';
 import PaymentPage from './pages/Payment';
-import Navbar from './components/Navbar';
 
 const App = () => {
     return (
@@ -40,6 +41,7 @@ const Layout = () => {
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/signUp" element={<SignUp />} />
+                    <Route path="/selection" element={<Selection />} /> {/* Added Selection route */}
                     <Route path="/marketplace" element={<MarketPlace />} />
                     <Route path="/marketplace/:cardName" element={<CardDetail />} />
                     <Route path="/marketplace/:authorName/payment" element={<PaymentPage />} />

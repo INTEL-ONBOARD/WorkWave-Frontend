@@ -13,7 +13,7 @@ const SignIn = () => {
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-white via-white to-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-                    Sign In
+                    Sign Up
                 </h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="flex flex-col">

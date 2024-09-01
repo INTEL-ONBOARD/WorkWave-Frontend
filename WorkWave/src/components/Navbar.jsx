@@ -35,10 +35,10 @@ const Navbar = () => {
 
                 {/* Centered Links */}
                 <div className="flex-1 flex justify-center space-x-8">
-                    <Link to="/" className={`flex items-center ${isMarketPlace ? 'text-white' : 'text-white'} hover:text-gray-200`}>
-                        <FaHome size={24} className="mr-2" />
-                        Home
-                    </Link>
+    <Link to="/Home" className={`flex items-center ${isMarketPlace ? 'text-white' : 'text-white'} hover:text-gray-200`}>
+        <FaHome size={24} className="mr-2" />
+        Home
+    </Link>
                     <Link to="/marketplace" className={`flex items-center ${isMarketPlace ? 'text-white' : 'text-white'} hover:text-gray-200`}>
                         <FaShoppingCart size={24} className="mr-2" />
                         Market Place
@@ -59,7 +59,7 @@ const Navbar = () => {
                         to="/signin" 
                         className="bg-white text-orange-500 py-2 px-4 rounded-full font-semibold hover:bg-gray-200"
                     >
-                        Sign in
+                        Sign Up
                     </Link>
                     <Link 
                         to="/signup" 

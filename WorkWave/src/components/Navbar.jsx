@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHome, FaShoppingCart, FaEnvelope, FaInfoCircle } from 'react-icons/fa';
@@ -36,7 +35,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     }, []);
 
     return (
-        <nav className={`relative py-4 ${isMarketPlace ? 'bg-transparent' : 'bg-[#E8A427]'}`}>
+        <nav className={`relative py-6 ${isMarketPlace ? 'bg-transparent' : 'bg-gradient-to-r from-yellow-400 to-yellow-600'}`}>
             {isMarketPlace && (
                 <div className="absolute inset-0">
                     <img
@@ -49,7 +48,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
             )}
 
             <div className="relative container mx-auto flex justify-between items-center px-6 z-10">
-                <div className={`text-3xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'}`}>
+                <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'}`}>
                     WorkWave
                 </div>
 

@@ -20,6 +20,12 @@ import MarketPlace from './pages/MarketPlace';
 import CardDetail from './pages/CardDetail';
 import PaymentPage from './pages/Payment';
 import HomePage from './pages/Home';
+import TermsOfServices from './pages/TermsOfService';
+import CookiesPolicy from './pages/CookiesPolicy';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+
+
+
 
 const App = () => {
     // State to track if the user is logged in
@@ -61,7 +67,10 @@ const Layout = ({ isLoggedIn, setIsLoggedIn, onLogout }) => {
                     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/signUp" element={<SignUp />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/terms" element={<TermsOfServices />} />
+                    <Route path="/cookies" element={<CookiesPolicy />} />
+                    <Route path="/privacy" element={<PrivacyPolicy />} />
                     <Route path="/selection" element={<Selection />} />
                     <Route path="/marketplace" element={<MarketPlace />} />
                     <Route path="/marketplace/:cardName" element={<CardDetail />} />

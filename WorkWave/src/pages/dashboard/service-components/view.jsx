@@ -13,13 +13,11 @@ const View = ({onButtonClick}) => {
                 <section class="bg-white 0 w-full">
                     <div class="container flex flex-col items-center px-4 py-12 mx-auto text-center">
                         <h2 class="max-w-2xl mx-auto text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl ">
-                            Bring your Business to the <span class="text-orange-500">next level.</span>
+                        Expand Your Reach and <span class="text-orange-500">Grow Your Business.</span>
                         </h2>
 
                         <p class="max-w-4xl mt-6 text-center text-gray-500 ">
-                            Lorem, ipsum dolor sit amet consectetur
-                            adipisicing elit. Cum quidem officiis reprehenderit, aperiam veritatis non, quod veniam fuga possimus hic
-                            explicabo laboriosam nam. A tempore totam ipsa nemo adipisci iusto!
+                        Showcase your skills, connect with clients, and turn your expertise into income. Our platform provides the tools you need to succeed—whether you're listing your first service or managing multiple gigs. Take control of your freelance career, track your progress, and watch your business thrive with every completed order. Start creating and listing your services today to reach new clients and maximize your earning potential!
                         </p>
 
                         {/* <div class="inline-flex w-full mt-6 sm:w-auto">
@@ -29,25 +27,25 @@ const View = ({onButtonClick}) => {
                         </div> */}
                         <dl class="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
                     <div class="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                    <dt class="order-last text-lg font-medium text-gray-500">Total Sales</dt>
+                    <dt class="order-last text-lg font-medium text-gray-500">Total Earnings</dt>
 
                     <dd class="text-4xl font-extrabold text-orange-600 md:text-5xl">$4.8m</dd>
                     </div>
 
                     <div class="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                    <dt class="order-last text-lg font-medium text-gray-500">Official Addons</dt>
+                    <dt class="order-last text-lg font-medium text-gray-500">Gigs</dt>
 
                     <dd class="text-4xl font-extrabold text-orange-600 md:text-5xl">24</dd>
                     </div>
 
                     <div class="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                    <dt class="order-last text-lg font-medium text-gray-500">Total Addons</dt>
+                    <dt class="order-last text-lg font-medium text-gray-500">Orders Completed</dt>
 
                     <dd class="text-4xl font-extrabold text-orange-600 md:text-5xl">86</dd>
                     </div>
 
                     <div class="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                    <dt class="order-last text-lg font-medium text-gray-500">Downloads</dt>
+                    <dt class="order-last text-lg font-medium text-gray-500">Reaches</dt>
 
                     <dd class="text-4xl font-extrabold text-orange-600 md:text-5xl">86k</dd>
                     </div>
@@ -87,8 +85,8 @@ const View = ({onButtonClick}) => {
                     <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         <div class="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg border">
                             <div class="px-4 py-2">
-                                <h1 class="text-xl font-bold text-gray-800 uppercase ">NIKE AIR</h1>
-                                <p class="mt-1 text-sm text-gray-600 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi quos quidem sequi illum facere recusandae voluptatibus</p>
+                                <h1 class="text-xl font-bold text-gray-800 uppercase ">Graphic Designing</h1>
+                                <p class="mt-1 text-sm text-gray-600 ">I do graphic designing like flyers, wedding cards , posters and many more</p>
                             </div>
 
                             <img class="object-cover w-full h-48 mt-2" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80" alt="NIKE AIR" />

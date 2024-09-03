@@ -45,35 +45,8 @@ const Sidebar = () => {
               to="/dashboard/usersettings"
               className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
             >
-              <FaEnvelope className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
-              <span className="flex-1 ms-3 whitespace-nowrap">UserSettings</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/notifications"
-              className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-            >
               <FaBell className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
-              <span className="flex-1 ms-3 whitespace-nowrap">Notifications</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/signin"
-              className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-            >
-              <FaSignInAlt className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
-              <span className="flex-1 ms-3 whitespace-nowrap">Sign In</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/signup"
-              className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 "
-            >
-              <FaUserPlus className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
-              <span className="flex-1 ms-3 whitespace-nowrap">Sign Up</span>
+              <span className="flex-1 ms-3 whitespace-nowrap">UserSettings</span>
             </Link>
           </li>
         </ul>

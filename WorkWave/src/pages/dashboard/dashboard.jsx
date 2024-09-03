@@ -32,7 +32,7 @@ const Dashboard = () => {
                                 </svg>
                             </button>
 
-                            <a href="https://flowbite.com" className="flex ms-2 md:me-24">
+                            <a href="#" className="flex ms-2 md:me-24">
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap " style={{color:'orange'}}>WorkWave</span>
                             </a>
                         </div>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                                             Neil Sims
                                         </p>
                                         <p className="text-sm font-medium text-gray-900 truncate " role="none">
-                                            neil.sims@flowbite.com
+                                            neil.sims@Workwave.com
                                         </p>
                                     </div>
                                     <ul className="py-1" role="none">

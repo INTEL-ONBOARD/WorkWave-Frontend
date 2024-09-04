@@ -1,6 +1,6 @@
 import React from 'react';
 
-const View = ({onButtonClick}) => {
+const View = ({onButtonClick, onsingleClick}) => {
 
 
     
@@ -93,7 +93,7 @@ const View = ({onButtonClick}) => {
 
                             <div class="flex items-center justify-between px-4 py-2 bg-orange-400">
                                 <h1 class="text-lg font-bold text-white">$129</h1>
-                                <button class="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none">Add to cart</button>
+                                <button class="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none" onClick={onsingleClick}>Select</button>
                             </div>
                         </div>
                     </div>

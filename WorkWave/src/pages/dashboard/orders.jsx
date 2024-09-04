@@ -19,31 +19,18 @@ const Orders = () => {
                         <span class="px-3 py-1 text-xs text-orange-600 bg-orange-100 rounded-full ">240 vendors</span>
                     </div>
 
-                    <p class="mt-1 text-sm text-gray-500 ">These companies have purchased in the last 12 months.</p>
+                    <p class="mt-1 text-sm text-gray-500 ">Customers of your Services.</p>
                 </div>
 
-                <div class="flex items-center mt-4 gap-x-3">
-                    <button class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto ">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_3098_154395)">
-                            <path d="M13.3333 13.3332L9.99997 9.9999M9.99997 9.9999L6.66663 13.3332M9.99997 9.9999V17.4999M16.9916 15.3249C17.8044 14.8818 18.4465 14.1806 18.8165 13.3321C19.1866 12.4835 19.2635 11.5359 19.0351 10.6388C18.8068 9.7417 18.2862 8.94616 17.5555 8.37778C16.8248 7.80939 15.9257 7.50052 15 7.4999H13.95C13.6977 6.52427 13.2276 5.61852 12.5749 4.85073C11.9222 4.08295 11.104 3.47311 10.1817 3.06708C9.25943 2.66104 8.25709 2.46937 7.25006 2.50647C6.24304 2.54358 5.25752 2.80849 4.36761 3.28129C3.47771 3.7541 2.70656 4.42249 2.11215 5.23622C1.51774 6.04996 1.11554 6.98785 0.935783 7.9794C0.756025 8.97095 0.803388 9.99035 1.07431 10.961C1.34523 11.9316 1.83267 12.8281 2.49997 13.5832" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_3098_154395">
-                            <rect width="20" height="20" fill="white"/>
-                            </clipPath>
-                            </defs>
-                        </svg>
+                <div class="flex items-center mt-4 gap-x-3" disabled>
 
-                        <span>Import</span>
-                    </button>
 
-                    <button class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-orange-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-orange-600 ">
+                    <button type="button" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-orange-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-orange-600 " disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
 
-                        <span>Add vendor</span>
+                        <span>Change</span>
                     </button>
                 </div>
             </div>
@@ -94,28 +81,28 @@ const Orders = () => {
                                         </th>
 
                                         <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                                            Status
+                                            User Type
                                         </th>
 
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                                            About
+                                            Gig info
                                         </th>
 
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Users</th>
 
-                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">License use</th>
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Time Period</th>
 
-                                        <th scope="col" class="relative py-3.5 px-4">
-                                            <span class="sr-only">Edit</span>
-                                        </th>
+
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Actions</th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 ">
                                     <tr>
                                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                             <div>
-                                                <h2 class="font-medium text-gray-800  ">Catalog</h2>
-                                                <p class="text-sm font-normal text-gray-600 ">catalogapp.io</p>
+                                                <h2 class="font-medium text-gray-800  ">Mr.NImal</h2>
+                                                <p class="text-sm font-normal text-gray-600 ">nimal@gmail.com</p>
                                             </div>
                                         </td>
                                         <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
@@ -125,117 +112,23 @@ const Orders = () => {
                                         </td>
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                                             <div>
-                                                <h4 class="text-gray-700 ">Content curating app</h4>
-                                                <p class="text-gray-500 ">Brings all your news into one place</p>
+                                                <h4 class="text-gray-700 ">Graphic Designing</h4>
+                                                <p class="text-gray-500 ">I will do graphic designing</p>
                                             </div>
                                         </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap items-center text-center">
                                             <div class="flex items-center">
                                                 <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full  shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full  shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full  shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full  shrink-0" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-orange-600 bg-orange-100 border-2 border-white rounded-full">+4</p>
                                             </div>
                                         </td>
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="w-48 h-1.5 bg-orange-200 overflow-hidden rounded-full">
-                                                <div class="bg-orange-500 w-2/3 h-1.5"></div>
-                                            </div>
+                                        <h4 class="text-gray-700 ">3 days</h4>
                                         </td>
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                                             <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg  hover:bg-gray-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            <div>
-                                                <h2 class="font-medium text-gray-800 ">Circooles</h2>
-                                                <p class="text-sm font-normal text-gray-600 ">getcirooles.com</p>
-                                            </div>
-                                        </td>
-                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                            <div class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full  gap-x-2">
-                                                Churned
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div>
-                                                <h4 class="text-gray-700 ">Design software</h4>
-                                                <p class="text-gray-500 ">Super lightweight design app</p>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt="" />
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-orange-600 bg-orange-100 border-2 border-white rounded-full">+4</p>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="w-48 h-1.5 bg-orange-200 overflow-hidden rounded-full">
-                                                <div class="bg-orange-500 w-2/5 h-1.5"></div>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg  hover:bg-gray-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            <div>
-                                                <h2 class="font-medium text-gray-800  ">Sisyphus</h2>
-                                                <p class="text-sm font-normal text-gray-600 ">sisyphus.com</p>
-                                            </div>
-                                        </td>
-                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                            <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 ">
-                                                Customer
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div>
-                                                <h4 class="text-gray-700 ">Automation and workflow</h4>
-                                                <p class="text-gray-500 ">Time tracking, invoicing and expenses</p>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt=""/>
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt=""/>
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt=""/>
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt=""/>
-                                                <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-orange-600 bg-orange-100 border-2 border-white rounded-full">+4</p>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="w-48 h-1.5 bg-orange-200 overflow-hidden rounded-full">
-                                                <div class="bg-orange-500 w-11/12 h-1.5"></div>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                </svg>
+                                            <i class="fi fi-rr-checkbox"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -246,7 +139,7 @@ const Orders = () => {
                     </div>
                 </div>
             </div>
-
+{/* 
             <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                 <div class="text-sm text-gray-500 dark:text-gray-400">
                     Page <span class="font-medium text-gray-700 dark:text-gray-100">1 of 10</span> 
@@ -273,7 +166,7 @@ const Orders = () => {
                         </svg>
                     </a>
                 </div>
-            </div>
+            </div> */}
         </section>
     </>
 </div>

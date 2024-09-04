@@ -14,16 +14,13 @@ const Home = () => {
       <header className="flex justify-between items-center mb-8 p-10">
         <h1 className="text-3xl font-thin">Dashboard</h1>
         <div className="flex items-center space-x-4">
-          <button className="bg-gray-200 py-2 px-4 rounded-lg text-gray-700">
-            Manage Dashboard
-          </button>
           <button className="bg-orange-500 text-white py-2 px-4 rounded-lg">
             + Update
           </button>
         </div>
       </header>
 
-      <section class="flex items-center flex-1">
+      <section class="flex items-center flex-1 my-20">
     <div class="flex flex-col w-full items-center">
         <h1 class="text-5xl font-extrabold text-center lg:text-7xl 2xl:text-8xl">
             <span class="text-transparent bg-gradient-to-br bg-clip-text from-orange-500 via-red-500 to-pink-500">
@@ -53,7 +50,7 @@ const Home = () => {
 </section>
 
 
-      <section class="bg-white  mt-5">
+      <section class="bg-white  mt-20">
     <div class="container px-6 py-12 mx-auto">
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div>

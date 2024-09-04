@@ -3,14 +3,14 @@ import React from 'react';
 const Orders = () => {
     return (
         <>
-                    <h1 className="text-3xl font-thin bg-white p-10 md:-mb-5 lg:-mb-10"  style={{"margin-top":"3.5rem"}}>Orders</h1>
-                    <div className="flex flex-col items-center justify-center min-h-screen bg-white" >
+                    <h1 className="text-3xl font-thin bg-white p-10 md:-mb-5 lg:-mb-10 "  style={{"margin-top":"3.5rem"}}>Orders</h1>
+                    <div className="flex flex-col items-center justify-center  bg-white" >
 
 <div className="w-full rounded-lg">
 
 <>
 
-        <section class="container px-10 mx-auto md:-mt-80">
+        <section class="container px-10 mx-auto md:-mt-80 pb-10" style={{"margin-top":"3.5rem"}}>
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex items-center gap-x-3">
@@ -70,7 +70,7 @@ const Orders = () => {
                                     <tr>
                                         <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                             <button class="flex items-center gap-x-3 focus:outline-none">
-                                                <span>Company</span>
+                                                <span>Customer Details</span>
 
                                                 <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
@@ -88,11 +88,11 @@ const Orders = () => {
                                             Gig info
                                         </th>
 
-                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Users</th>
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Order Information</th>
 
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Time Period</th>
 
-
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Charge</th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Actions</th>
 
                                     </tr>
@@ -116,14 +116,18 @@ const Orders = () => {
                                                 <p class="text-gray-500 ">I will do graphic designing</p>
                                             </div>
                                         </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap items-center text-center">
-                                            <div class="flex items-center">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full  shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                            </div>
+
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <p class="text-gray-500 ">I need a Birthday card deisgn that I can print</p>
                                         </td>
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <h4 class="text-gray-700 ">3 days</h4>
+                                        </td>
+
+
+                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <h4 class="text-gray-700 font-bold ">4.5$</h4>
                                         </td>
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">

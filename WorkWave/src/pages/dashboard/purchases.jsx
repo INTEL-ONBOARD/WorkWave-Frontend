@@ -5,7 +5,7 @@ const Purchases = () => {
         <div className="flex items-center justify-center mt-10 py-10 bg-white"style={{"margin-top":"3.5rem"}}>      
             <div className="w-full  rounded-lg text-center flex flex-col items-center justify-center p-5  ">
                 <div class=" p-4 bg-white rounded-lg md:p-8 mb-5" id="about" role="tabpanel" aria-labelledby="about-tab">
-                    <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 ">Powering innovation & trust at 200,000+ companies worldwide</h2>
+                    <h2 class="mb-3 text-3xl font-medium tracking-tight text-gray-900 ">Powering innovation & trust at 200,000+ companies worldwide</h2>
                     <p class="mb-3 text-gray-500 ">Empower Developers, IT Ops, and business teams to collaborate at high velocity. Respond to changes and deliver great customer and employee service experiences fast.</p>
                     <a href="#" class="inline-flex items-center font-medium text-orange-600 hover:text-orange-800 ">
                         Learn more

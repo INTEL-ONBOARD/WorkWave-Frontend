@@ -5,7 +5,7 @@ const Form = () => {
     return (
                  
         <>
-        <div className=" py-5 bg-white w-full grid md:grid-cols-2 md:gap-6 " style={{"margin-top": "4rem"}}>
+        <div className=" py-5 bg-white w-full grid md:grid-cols-2 md:gap-6 " style={{"margin-top": "3.5rem"}}>
         <div className="flex items-center justify-center p-5 w-full">
             <section class="bg-white ">
                 <div class="max-w-3xl px-6 py-16 mx-auto text-center">

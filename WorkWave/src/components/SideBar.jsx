@@ -16,7 +16,7 @@ const Sidebar = () => {
               to="/dashboard"
               className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 "
             >
-              <FaHome className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <i class="fi fi-rr-home"></i>
               <span className="ms-3">Dashboard</span>
             </Link>
           </li>
@@ -25,7 +25,7 @@ const Sidebar = () => {
               to="/dashboard/purchases"
               className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 "
             >
-              <FaTasks className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 da" />
+              <i class="fi fi-rr-shopping-cart"></i>
               <span className="flex-1 ms-3 whitespace-nowrap">Purchases</span>
               {/* <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-600 bg-yellow-100 rounded-full ">3</span> */}
             </Link>
@@ -35,9 +35,18 @@ const Sidebar = () => {
               to="/dashboard/services"
               className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
             >
-              <FaInbox className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <i class="fi fi-rr-briefcase"></i>
               <span className="flex-1 ms-3 whitespace-nowrap">Services</span>
               {/* <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-600 bg-yellow-100 rounded-full">3</span> */}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/dashboard/orders"
+              className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+            >
+              <i class="fi fi-rr-chart-histogram"></i>
+              <span className="flex-1 ms-3 whitespace-nowrap">Orders</span>
             </Link>
           </li>
           <li>
@@ -45,7 +54,7 @@ const Sidebar = () => {
               to="/dashboard/usersettings"
               className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
             >
-              <FaBell className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <i class="fi fi-rr-settings-sliders"></i>
               <span className="flex-1 ms-3 whitespace-nowrap">UserSettings</span>
             </Link>
           </li>

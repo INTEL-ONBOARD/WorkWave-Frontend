@@ -10,7 +10,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Check if the current path is related to the Market Place (including routes with parameters)
     const isMarketPlace = location.pathname.startsWith('/marketplace');
 
     const handleInputChange = (event) => {
@@ -21,7 +20,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    // Close the dropdown if clicked outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,26 +33,25 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     }, []);
 
     return (
-        <nav className={`relative py-6 ${isMarketPlace ? 'bg-transparent' : 'bg-gradient-to-r from-yellow-400 to-yellow-600'}`}>
+        <nav className={`relative py-8 overflow-x-hidden ${isMarketPlace ? 'bg-transparent' : 'bg-gradient-to-r from-yellow-400 to-yellow-600'} transition-transform duration-300 transform hover:scale-105`} style={{ height: 'auto' }}>
             {isMarketPlace && (
                 <div className="absolute inset-0">
                     <img
                         src={marketPlaceImage}
                         alt="Market Place"
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-cover"
                     />
-                    <div className="absolute inset-0 bg-orange-900 opacity-70"></div> {/* Orange overlay */}
+                    <div className="absolute inset-0 bg-orange-900 opacity-70"></div>
                 </div>
             )}
 
-            <div className="relative container mx-auto flex justify-between items-center px-6 z-10">
-                <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'}`}>
+            <div className="relative container mx-auto flex flex-wrap justify-between items-center px-6 z-10">
+                <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'} whitespace-nowrap`}>
                     WorkWave
                 </div>
 
-                {/* Centered Links */}
                 <div className="flex-1 flex justify-center space-x-8">
-                    <Link to="/Home" className={`flex items-center ${isMarketPlace ? 'text-white' : 'text-white'} hover:text-gray-200`}>
+                    <Link to="/homepage" className={`flex items-center ${isMarketPlace ? 'text-white' : 'text-white'} hover:text-gray-200`}>
                         <FaHome size={24} className="mr-2" />
                         Home
                     </Link>
@@ -72,7 +69,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                     </Link>
                 </div>
 
-                {/* Conditional Rendering for Login/Join or User Icon */}
                 <div className="flex space-x-4 items-center">
                     {isLoggedIn ? (
                         <div className="relative" ref={dropdownRef}>
@@ -90,7 +86,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                                 />
                             </button>
 
-                            {/* Dropdown Menu */}
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
                                     <div className="px-4 py-3">
@@ -182,3 +177,4 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
 };
 
 export default Navbar;
+

@@ -66,6 +66,7 @@ const Layout = ({ isLoggedIn, setIsLoggedIn, onLogout }) => {
                     <Route path="/" element={<HomePage/>} />
                     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/homepage" element={<HomePage />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/terms" element={<TermsOfServices />} />

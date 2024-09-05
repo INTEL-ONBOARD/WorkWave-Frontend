@@ -52,6 +52,21 @@ const FormUpdate = () => {
 
 
                          </div> 
+                         <div class="grid md:grid-cols-2 md:gap-6">
+                            <div class="mb-5">
+                                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900">Price</label>
+                                <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 "/>
+                            </div>
+                            <div class="mb-5">
+                                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Delivery Days</label>
+                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500">
+                                    <option value="1">Withing a Day</option>
+                                    <option value="2">2 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="4">4 Days</option>
+                                </select>
+                            </div>
+                        </div> 
                         <div class="mb-5">
                             <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900">Gig Title</label>
                             <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 "/>

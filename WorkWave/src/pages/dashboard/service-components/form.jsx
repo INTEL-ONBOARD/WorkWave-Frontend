@@ -1,109 +1,185 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getUserSession } from '../../../utils/session'; // Adjust the path if needed
 
 const Form = () => {
+  const [title, setTitle] = useState('');
+  const [miniDescription, setMiniDescription] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+  const [error, setError] = useState('');
 
-    return (
-                 
-        <>
-        <div className=" py-5 bg-white w-full grid md:grid-cols-2 md:gap-6 " style={{"margin-top": "3.5rem"}}>
+  // Retrieve the user profile from session storage
+  const userProfile = JSON.parse(sessionStorage.getItem('profile'));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Form validation
+    if (!title || !miniDescription || !description || !category || !price || !coverImage) {
+      setError('Please fill all required fields.');
+      return;
+    }
+  
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('miniDescription', miniDescription);
+    formData.append('description', description);
+    formData.append('category', category);
+    formData.append('price', price);
+    formData.append('coverImage', coverImage);
+  
+    // Include user ID from the profile if available
+    if (userProfile && userProfile.userId) {
+        formData.append('freelancerId', userProfile.Id); // Incorrect key
+
+    } else {
+      setError('User profile is missing.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://localhost:8083/api/ListService/create', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Service created successfully:', result);
+        // Optionally, navigate to another page or show a success message
+      } else {
+        const errorMessage = await response.text();
+        console.error('Error creating service:', errorMessage);
+        setError('Failed to create the service. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during form submission:', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+  };
+  
+
+  return (
+    <>
+      <div className="py-5 bg-white w-full grid md:grid-cols-2 md:gap-6" style={{ marginTop: '3.5rem' }}>
         <div className="flex items-center justify-center p-5 w-full">
-            <section class="bg-white ">
-                <div class="max-w-3xl px-6 py-16 mx-auto text-center">
-                    <h1 class="text-3xl font-semibold text-gray-800 ">Create a New Service</h1>
-                    <p class="max-w-md mx-auto mt-5 text-gray-500 ">Offer your expertise to a global audience by creating a new service. Describe the skills and experience you bring to the table, set your pricing, and outline the details of your service to attract potential clients. This is your opportunity to showcase your talents, set clear expectations, and start earning. Fill in the required details below to get started!</p>
-
-                    <div class="flex flex-col mt-8 space-y-3 sm:space-y-0 sm:flex-row sm:justify-center sm:-mx-2">
-                        <input id="email" type="text" class="px-4 py-2 text-gray-700 bg-white border rounded-md sm:mx-2  focus:border-orange-400  focus:outline-none focus:ring focus:ring-orange-300 focus:ring-opacity-40" placeholder="Email Address" />
-
-                        <button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-orange-500 rounded-md sm:mx-2 hover:bg-orange-600 focus:outline-none focus:bg-orange-800">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-            <div className="flex items-start justify-start p-10 w-full">
-                <div className="rounded-lg w-full ">
-                {/* max-w-xs overflow-hidden  */}
-                    <form class=" w-full">
-                        <div class="grid md:grid-cols-2 md:gap-6">
-
-                            <div class="mb-5 ">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 " for="user_avatar">Cover Image</label>
-                                <input class="block w-full text-sm text-gray-900 border p-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
-                                <div class="mt-1 text-sm text-gray-500 " id="user_avatar_help">Please try to uplod reguler size png or jpg image</div>
-                            </div>
-
-                            <div class="mb-5">
-                                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Select your Category</label>
-                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500">
-                                    <option value="1">Category-1</option>
-                                    <option value="2">Category-2</option>
-                                    <option value="3">Category-3</option>
-                                    <option value="4">Category-4</option>
-                                </select>
-                            </div>
-
-
-
-                         </div> 
-
-                         <div class="grid md:grid-cols-2 md:gap-6">
-                            <div class="mb-5">
-                                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900">Price</label>
-                                <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 "/>
-                            </div>
-                            <div class="mb-5">
-                                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Delivery Days</label>
-                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500">
-                                    <option value="1">Withing a Day</option>
-                                    <option value="2">2 Days</option>
-                                    <option value="3">3 Days</option>
-                                    <option value="4">4 Days</option>
-                                </select>
-                            </div>
-                        </div> 
-
-                        <div class="mb-5">
-                            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900">Gig Title</label>
-                            <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 "/>
-                        </div>
-                        <div class="mb-5">
-                            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900">Mini Description</label>
-                            <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 "/>
-                        </div>
-                        <div class="mb-5">
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">About the Gig</label>
-                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 " placeholder="Leave a comment..."></textarea>
-
-                        </div>
-
-
-
-
-
-
-                        <button type="submit" class="text-white bg-orange-500 hover:bg-orange-6 00 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create</button>
-
-
-
-                    </form>
-
-                </div>
+          <section className="bg-white">
+            <div className="max-w-3xl px-6 py-16 mx-auto text-center">
+              <h1 className="text-3xl font-semibold text-gray-800">Create a New Service</h1>
+              <p className="max-w-md mx-auto mt-5 text-gray-500">
+                Offer your expertise to a global audience by creating a new service. Describe the skills and experience you bring to the table, set your pricing, and outline the details of your service to attract potential clients. This is your opportunity to showcase your talents, set clear expectations, and start earning. Fill in the required details below to get started!
+              </p>
             </div>
-
-
-          
+          </section>
         </div>
-        </>
+        <div className="flex items-start justify-start p-10 w-full">
+          <div className="rounded-lg w-full">
+            <form className="w-full" onSubmit={handleSubmit}>
+              <div className="grid md:grid-cols-2 md:gap-6">
+                <div className="mb-5">
+                  <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="coverImage">
+                    Cover Image
+                  </label>
+                  <input
+                    className="block w-full text-sm text-gray-900 border p-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                    aria-describedby="coverImage_help"
+                    id="coverImage"
+                    type="file"
+                    onChange={(e) => setCoverImage(e.target.files[0])}
+                  />
+                  <div className="mt-1 text-sm text-gray-500" id="coverImage_help">
+                    Please try to upload a regular size png or jpg image
+                  </div>
+                </div>
 
-        
-
-
-    );
-}
+                <div className="mb-5">
+                  <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">
+                    Select your Category
+                  </label>
+                  <select
+                    id="category"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500"
+                  >
+                    <option value="">Choose a Category</option>
+                    <option value="Category-1">Category-1</option>
+                    <option value="Category-2">Category-2</option>
+                    <option value="Category-3">Category-3</option>
+                    <option value="Category-4">Category-4</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mb-5">
+                <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
+                  Gig Title
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                />
+              </div>
+              <div className="mb-5">
+                <label htmlFor="miniDescription" className="block mb-2 text-sm font-medium text-gray-900">
+                  Mini Description
+                </label>
+                <input
+                  type="text"
+                  id="miniDescription"
+                  value={miniDescription}
+                  onChange={(e) => setMiniDescription(e.target.value)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                />
+              </div>
+              <div className="mb-5">
+                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
+                  About the Gig
+                </label>
+                <textarea
+                  id="description"
+                  rows="4"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500"
+                  placeholder="Leave a comment..."
+                />
+              </div>
+              <div className="mb-5">
+                <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                />
+              </div>
+              {error && <p className="text-red-500 mb-4">{error}</p>}
+              <button
+                type="submit"
+                className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Create
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Form;
+
+
 
 // <>
 //         <div className=" py-5 bg-white w-full " style={{"margin-top": "4rem"}}>

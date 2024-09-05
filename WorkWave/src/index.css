@@ -15,7 +15,6 @@
 .nav-link {
   position: relative;
   display: inline-block;
-  padding: 0.5rem 1rem;
   text-transform: uppercase;
   font-weight: bold;
   color: #333; /* Default color */
@@ -32,7 +31,6 @@
   background: #FFD700; /* Gold color for underline */
   transform: scaleX(0);
   transform-origin: bottom right;
-  transition: transform 0.3s ease-in-out;
 }
 
 .nav-link:hover::before {

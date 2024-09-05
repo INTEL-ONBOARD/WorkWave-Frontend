@@ -1,16 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaShoppingCart, FaEnvelope, FaInfoCircle } from 'react-icons/fa';
 import searchIcon from '../assets/mingcute_search-line.png';
 import marketPlaceImage from '../assets/marketnav.png';
+import { getUserSession, clearUserSession } from '../utils/session'; // Session utility
 
-const Navbar = ({ isLoggedIn, onLogout }) => {
+const Navbar = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [user, setUser] = useState(null);
     const dropdownRef = useRef(null);
 
     const isMarketPlace = location.pathname.startsWith('/marketplace');
+
+    useEffect(() => {
+        const sessionUser = getUserSession();
+        setUser(sessionUser);
+    }, []);
 
     const handleInputChange = (event) => {
         setSearchQuery(event.target.value);
@@ -32,8 +40,14 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         };
     }, []);
 
+    const handleLogout = () => {
+        clearUserSession();
+        setUser(null);
+        navigate('/login');
+    };
+
     return (
-        <nav className={`relative py-8 overflow-x-hidden ${isMarketPlace ? 'bg-transparent' : 'bg-gradient-to-r from-yellow-400 to-yellow-600'} transition-transform duration-300 transform hover:scale-105`} style={{ height: 'auto' }}>
+        <nav className={`relative py-6 ${isMarketPlace ? 'bg-transparent' : 'bg-gradient-to-r from-yellow-400 to-yellow-600'}`}>
             {isMarketPlace && (
                 <div className="absolute inset-0">
                     <img
@@ -44,9 +58,8 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                     <div className="absolute inset-0 bg-orange-900 opacity-70"></div>
                 </div>
             )}
-
-            <div className="relative container mx-auto flex flex-wrap justify-between items-center px-6 z-10">
-                <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'} whitespace-nowrap`}>
+            <div className="relative container mx-auto flex justify-between items-center px-6 z-10">
+            <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'}`}>
                     WorkWave
                 </div>
 
@@ -70,65 +83,62 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                 </div>
 
                 <div className="flex space-x-4 items-center">
-                    {isLoggedIn ? (
-                        <div className="relative" ref={dropdownRef}>
-                            <button
-                                type="button"
-                                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
-                                aria-expanded={dropdownOpen}
-                                onClick={toggleDropdown}
-                            >
-                                <span className="sr-only">Open user menu</span>
-                                <img
-                                    className="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                    alt="user photo"
-                                />
-                            </button>
+                    {user ? (
+                      // In your Navbar component, update the dropdown section like this:
+<div className="relative" ref={dropdownRef}>
+    <button
+        type="button"
+        className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
+        aria-expanded={dropdownOpen}
+        onClick={toggleDropdown}
+    >
+        <span className="sr-only">Open user menu</span>
+        <img
+            className="w-8 h-8 rounded-full"
+            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+            alt="user photo"
+        />
+    </button>
 
-                            {dropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
-                                    <div className="px-4 py-3">
-                                        <p className="text-sm text-gray-900">Neil Sims</p>
-                                        <p className="text-sm font-medium text-gray-900 truncate">neil.sims@flowbite.com</p>
-                                    </div>
-                                    <ul className="py-1">
-                                        <li>
-                                            <Link
-                                                to="/dashboard"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                Dashboard
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="/settings"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                Settings
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="/earnings"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                Earnings
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <button
-                                                onClick={onLogout}
-                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                Sign out
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
+    {dropdownOpen && (
+        <div
+            className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50"
+            style={{ position: 'absolute', zIndex: 50 }} // Ensure high z-index
+        >
+            <div className="px-4 py-3">
+                <p className="text-sm text-gray-900">Welcome, {user.firstName}</p>
+            </div>
+            <ul className="py-1">
+                <li>
+                    <Link
+                        to="/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                        Dashboard
+                    </Link>
+                </li>
+                <li>
+                    <Link
+                        to="/settings"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                        Settings
+                    </Link>
+                </li>
+                <li>
+                    <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                        Sign out
+                    </button>
+                </li>
+            </ul>
+        </div>
+    )}
+</div>
+
+                   
                     ) : (
                         <>
                             <Link
@@ -177,4 +187,3 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
 };
 
 export default Navbar;
-

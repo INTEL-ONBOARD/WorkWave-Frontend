@@ -1,7 +1,43 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For redirection
+import { saveUserSession } from '../utils/session'; // Import session utility
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const [hovered, setHovered] = useState(false);
+    const navigate = useNavigate(); // For redirection
+
+    const handleLogin = async () => {
+        setError(''); // Clear any previous error
+
+        try {
+            const response = await fetch('http://localhost:8081/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            if (response.status === 200) {
+                const data = await response.json();
+                console.log('Login successful:', data);
+                saveUserSession(data); // Save user session
+                navigate('/dashboard'); // Redirect to dashboard or home
+            } else if (response.status === 401) {
+                setError('Invalid email or password');
+            } else {
+                setError('Something went wrong. Please try again.');
+            }
+        } catch (err) {
+            setError('Something went wrong. Please try again.');
+        }
+    };
 
     return (
         <div className="relative flex flex-col items-center justify-center min-h-screen bg-white overflow-hidden">
@@ -18,17 +54,25 @@ const Login = () => {
                 onMouseLeave={() => setHovered(false)}
             >
                 <h2 className="text-3xl font-bold text-center text-yellow-600 mb-6">Login</h2>
+                {error && <p className="text-red-500 text-center mb-4">{error}</p>}
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full py-2 px-4 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-500"
                 />
                 <input
                     type="password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full py-2 px-4 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-500"
                 />
-                <button className="w-full py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-yellow-600 focus:outline-none">
+                <button
+                    onClick={handleLogin}
+                    className="w-full py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-yellow-600 focus:outline-none"
+                >
                     Login
                 </button>
             </div>

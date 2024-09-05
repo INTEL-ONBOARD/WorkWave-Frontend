@@ -16,6 +16,7 @@ import Purchases from './pages/dashboard/purchases';
 import Orders from './pages/dashboard/orders'; 
 import Services from './pages/dashboard/services'; 
 import UserSettings from './pages/dashboard/UserSettings'; 
+import AddPortfolio from './pages/dashboard/addportfolio';
 import MarketPlace from './pages/MarketPlace';
 import CardDetail from './pages/CardDetail';
 import PaymentPage from './pages/Payment';
@@ -23,6 +24,7 @@ import HomePage from './pages/Home';
 import TermsOfServices from './pages/TermsOfService';
 import CookiesPolicy from './pages/CookiesPolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+
 
 
 
@@ -82,6 +84,7 @@ const Layout = ({ isLoggedIn, setIsLoggedIn, onLogout }) => {
                         <Route path="orders" element={<Orders />} />
                         <Route path="services" element={<Services />} />
                         <Route path="usersettings" element={<UserSettings />} />
+                        <Route path="addprofile" element={<AddPortfolio />} />
                     </Route>
                 </Routes>
             </main>

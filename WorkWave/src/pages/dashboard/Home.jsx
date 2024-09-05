@@ -1,11 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
     const userName = "Amantha"; // You can fetch this from your state or props
     const currentDate = new Date().toLocaleDateString();
     const lastLogin = "Last Login: September 4, 2024";
+    const navigate = useNavigate(); // Get the navigate function from React Router
 
+    const handleButtonClick = () => {
+        navigate('/dashboard/addprofile'); // Navigate to the Add Profile page
+    };
     return (
         <div className=" min-h-screen bg-white">
 
@@ -37,10 +42,14 @@ const Home = () => {
         </p>
 
         <div class="flex justify-center mt-6 w-full"> 
-            <button type="button" class="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
+        <button 
+                type="button" 
+                className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                onClick={handleButtonClick} // Attach the click handler
+            >
                 Create my Seller Account
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
             </button>
         </div>

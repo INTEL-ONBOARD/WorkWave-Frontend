@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // For redirection
-import { saveUserSession } from '../utils/session'; // Import session utility
+import { saveUserSession, saveUserProfileSession } from '../utils/session'; // Import session utility
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ const Login = () => {
 
     const handleLogin = async () => {
         setError(''); // Clear any previous error
-
+    
         try {
             const response = await fetch('http://localhost:8081/api/users/login', {
                 method: 'POST',
@@ -23,11 +23,25 @@ const Login = () => {
                     password: password,
                 }),
             });
-
+    
             if (response.status === 200) {
                 const data = await response.json();
                 console.log('Login successful:', data);
                 saveUserSession(data); // Save user session
+    
+                // Check if user is a freelancer
+                if (data.role.replace(/"/g, '') === 'Freelancer') {
+                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/${data.id}`);
+                    
+                    if (profileResponse.ok) {
+                        const profileData = await profileResponse.json();
+                        console.log('Profile data:', profileData);
+                        saveUserProfileSession(profileData); // Save profile session
+                    } else {
+                        console.error('Failed to fetch profile');
+                    }
+                }
+    
                 navigate('/dashboard'); // Redirect to dashboard or home
             } else if (response.status === 401) {
                 setError('Invalid email or password');
@@ -38,6 +52,7 @@ const Login = () => {
             setError('Something went wrong. Please try again.');
         }
     };
+    
 
     return (
         <div className="relative flex flex-col items-center justify-center min-h-screen bg-white overflow-hidden">

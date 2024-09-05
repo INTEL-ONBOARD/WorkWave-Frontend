@@ -7,6 +7,16 @@ export const getUserSession = () => {
     return user ? JSON.parse(user) : null;
 };
 
+export const saveUserProfileSession = (profile) => {
+    sessionStorage.setItem('userProfile', JSON.stringify(profile));
+};
+
+export const getUserProfileSession = () => {
+    const profile = sessionStorage.getItem('userProfile');
+    return profile ? JSON.parse(profile) : null;
+};
+
 export const clearUserSession = () => {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userProfile');
 };

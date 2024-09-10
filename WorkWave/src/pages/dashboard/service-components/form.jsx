@@ -11,7 +11,7 @@ const Form = () => {
   const [error, setError] = useState('');
 
   // Retrieve the user profile from session storage
-  const userProfile = JSON.parse(sessionStorage.getItem('profile'));
+  const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +32,8 @@ const Form = () => {
     formData.append('coverImage', coverImage);
   
     // Include user ID from the profile if available
-    if (userProfile && userProfile.userId) {
-        formData.append('freelancerId', userProfile.Id); // Incorrect key
-
+    if (userProfile && userProfile.id) {
+      formData.append('freelancerId', userProfile.id); // Correct key
     } else {
       setError('User profile is missing.');
       return;
@@ -60,6 +59,7 @@ const Form = () => {
       setError('An unexpected error occurred. Please try again.');
     }
   };
+  
   
 
   return (

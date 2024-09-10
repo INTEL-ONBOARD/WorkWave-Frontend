@@ -1,10 +1,13 @@
 // PaymentPage.js
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PaymentMethodCard from '../components/PaymentMethodCard'; // Adjust the import path as necessary
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const PaymentPage = () => {
-  // Sample data
+  const location = useLocation();
+  const { title, price } = location.state || { title: 'Default Product', price: 0 }; // Receive title and price
+
   const [paymentMethods, setPaymentMethods] = useState([
     { id: 1, cardType: '/path/to/visa-icon.png', lastDigits: '6754', expiryDate: '06/2021', selected: true },
     { id: 2, cardType: '/path/to/mastercard-icon.png', lastDigits: '5643', expiryDate: '11/2025', selected: false },
@@ -24,7 +27,8 @@ const PaymentPage = () => {
 
   return (
     <div className="flex p-6 space-x-6">
-        <Breadcrumbs/>
+      <Breadcrumbs />
+
       {/* Payment Method Section */}
       <div className="w-2/3 p-4 border rounded-lg">
         <h2 className="font-semibold text-lg mb-4">Payment Method</h2>
@@ -48,29 +52,25 @@ const PaymentPage = () => {
 
       {/* Order Summary Section */}
       <div className="p-11 border rounded-3xl bg-white flex flex-col justify-between" style={{ height: '600px' }}>
-
         <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
         <div className="space-y-2 flex-grow">
           <div className="flex justify-between">
-            <p>Price</p>
-            <p>$319.98</p>
+            <p>Product</p>
+            <p>{title}</p> {/* Display the product title */}
           </div>
           <div className="flex justify-between">
-            <p>Discount</p>
-            <p>$31.9</p>
+            <p>Price</p>
+            <p>${price}</p> {/* Display the product price */}
           </div>
           <div className="flex justify-between">
             <p>Shipping</p>
             <p className="text-orange-500">Free</p>
           </div>
-          <div className="flex justify-between">
-            <p>Coupon Applied</p>
-            <p>$0.00</p>
-          </div>
+          {/* Remove the discount section */}
           <hr className="my-2" />
           <div className="flex justify-between font-bold">
             <p>TOTAL</p>
-            <p>$288.08</p>
+            <p>${price}</p> {/* Set the total to the price */}
           </div>
           <div className="flex justify-between mt-4">
             <p>Estimated Delivery by</p>

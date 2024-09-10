@@ -1,39 +1,45 @@
+// MarketPlace.js
 import React, { useState } from 'react';
-import Categories from '../components/Category/Categories';  // Adjust the path as necessary
+import Categories from '../components/Category/Categories';
 import CardDeck from '../components/Card/CardDeck';
-import Breadcrumbs from '../components/Breadcrumbs';  // Add Breadcrumbs import
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const MarketPlace = ({ searchQuery }) => {
+    const [category, setCategory] = useState('');
     const [serviceOptions, setServiceOptions] = useState('');
     const [sellerDetails, setSellerDetails] = useState('');
     const [budget, setBudget] = useState('');
     const [deliveryTime, setDeliveryTime] = useState('');
 
+    // Handler for updating category
+    const handleCategoryChange = (selectedCategory) => {
+        setCategory(selectedCategory);
+    };
+
     return (
         <div className="container mx-auto px-4">
-
-            <Breadcrumbs />  
+            <Breadcrumbs />
             <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-2">Find Any Service You Want in a Sec</h2>
-                <p className="text-gray-600">Need a freelancer? Search our vast network of talented professionals and find the perfect match for your project in just seconds.</p>
+                <p className="text-gray-600">
+                    Need a freelancer? Search our vast network of talented professionals and find the perfect match for your project in just seconds.
+                </p>
             </div>
 
             <div className="flex">
-                <div className="w-1/4 pr-2">  {/* Reduced space on the right */}
-                    <Categories />
+                <div className="w-1/4 pr-2">
+                    <Categories onCategoryChange={handleCategoryChange} /> {/* Pass the handler */}
                 </div>
 
-                {/* Separator Line */}
                 <div className="w-px bg-gray-700 mb-4"></div>
 
-                <div className="w-3/4 pl-8">  {/* Increased space on the left */}
+                <div className="w-3/4 pl-8">
                     {searchQuery && (
                         <div className="text-4xl font-semibold text-gray-800 mb-4">
                             Search Results for "{searchQuery}"...
                         </div>
                     )}
 
-                    {/* Filters Section */}
                     <div className="flex flex-wrap justify-end items-center mb-4 space-x-4">
                         <select
                             value={serviceOptions}
@@ -77,7 +83,15 @@ const MarketPlace = ({ searchQuery }) => {
                         </select>
                     </div>
 
-                    <CardDeck />  {/* This will render the cards */}
+                    {/* Pass filters to CardDeck */}
+                    <CardDeck
+                        searchQuery={searchQuery}
+                        category={category}
+                        serviceOptions={serviceOptions}
+                        sellerDetails={sellerDetails}
+                        budget={budget}
+                        deliveryTime={deliveryTime}
+                    />
                 </div>
             </div>
         </div>

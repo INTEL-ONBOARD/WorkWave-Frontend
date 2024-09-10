@@ -1,6 +1,7 @@
+// Categories.js
 import React, { useState } from "react";
 
-const Categories = () => {
+const Categories = ({ onCategoryChange }) => { // Add onCategoryChange as a prop
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const categories = [
@@ -17,6 +18,7 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+    onCategoryChange(category); // Notify MarketPlace about the category change
   };
 
   return (

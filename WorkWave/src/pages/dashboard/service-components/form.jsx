@@ -100,17 +100,23 @@ const Form = () => {
                     Select your Category
                   </label>
                   <select
-                    id="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500"
-                  >
-                    <option value="">Choose a Category</option>
-                    <option value="Category-1">Category-1</option>
-                    <option value="Category-2">Category-2</option>
-                    <option value="Category-3">Category-3</option>
-                    <option value="Category-4">Category-4</option>
-                  </select>
+  id="category"
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm cursor-pointer rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 hover:border-orange-500"
+>
+  <option value="">Choose a Category</option>
+  <option value="Programming & Tech">Programming & Tech</option>
+  <option value="Graphics & Design">Graphics & Design</option>
+  <option value="Digital Marketing">Digital Marketing</option>
+  <option value="Writing & Translation">Writing & Translation</option>
+  <option value="Video & Animation">Video & Animation</option>
+  <option value="AI Services">AI Services</option>
+  <option value="Music & Audio">Music & Audio</option>
+  <option value="Business">Business</option>
+  <option value="Consulting">Consulting</option>
+</select>
+
                 </div>
               </div>
               <div className="mb-5">

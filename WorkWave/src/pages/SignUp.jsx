@@ -72,12 +72,12 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
-
+    
         const userData = {
             firstName: formData.firstName,
             lastName: formData.lastName,
@@ -89,7 +89,7 @@ const SignUp = () => {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
         };
-
+    
         try {
             const response = await fetch('http://localhost:8081/api/users/register', {
                 method: 'POST',
@@ -98,20 +98,26 @@ const SignUp = () => {
                 },
                 body: JSON.stringify(userData),
             });
-
+    
             if (response.ok) {
-                alert("Registration successful!");
-                
                 // Automatically log in the user after successful sign-up
                 await handleLogin(formData.email, formData.password);
             } else {
+                // Extract the error message from the response
                 const errorData = await response.json();
-                alert(`Registration failed: ${errorData.message}`);
+    
+                // Display specific error message
+                if (errorData.message) {
+                    alert(`Registration failed: ${errorData.message}`);
+                } else {
+                    alert('Registration failed: An unexpected error occurred.');
+                }
             }
         } catch (error) {
             alert("An error occurred: " + error.message);
         }
     };
+    
 
     return (
         <div className="flex justify-center items-center py-12 bg-gradient-to-b from-white to-gray-100">

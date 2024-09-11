@@ -1,3 +1,4 @@
+// CardDetail.js
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -29,24 +30,26 @@ const CardDetail = () => {
     fetchProfile();
   }, [freelancerId]);
 
-  // CardDetail.js
-const handleOrderClick = () => {
-  if (authorName) {
-    navigate(`/marketplace/${encodeURIComponent(authorName)}/payment`, {
-      state: { title, price }, // Pass the title and price to the PaymentPage
-    });
-  } else {
-    console.error('Author name is not available.');
-  }
-};
+  const handleOrderClick = () => {
+    if (authorName) {
+      navigate(`/marketplace/${encodeURIComponent(authorName)}/payment`, {
+        state: { title, price }, // Pass the title and price to the PaymentPage
+      });
+    } else {
+      console.error('Author name is not available.');
+    }
+  };
 
+  const handleProfileClick = () => {
+    if (freelancerId) {
+      navigate(`/freelancer-profile`, { state: { freelancerId } });
+    }
+  };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <Breadcrumbs />
-
       <h1 className="text-2xl font-bold text-center mb-6">{title || 'Default Title'}</h1>
-
       <div className="flex flex-col items-center mb-8">
         <img
           src={imageSrc || 'https://via.placeholder.com/600x300'}
@@ -74,7 +77,6 @@ const handleOrderClick = () => {
 
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">About this gig</h2>
-        {/* Displaying the description */}
         <p className="text-gray-700 mb-4">
           {description || 'Modern. Elegant. Effective. Video Editing Made Simple!'}
         </p>
@@ -85,7 +87,10 @@ const handleOrderClick = () => {
       <div className="mb-12">
         <h2 className="text-xl font-semibold mb-6">About the Gig Creator</h2>
         {profile ? (
-          <div className="flex items-center space-x-6 mb-6">
+          <div
+            className="flex items-center space-x-6 mb-6 cursor-pointer hover:bg-gray-100 p-4 rounded"
+            onClick={handleProfileClick}
+          >
             <img
               src="https://via.placeholder.com/100"
               alt={`${profile.firstName} ${profile.lastName}`}
@@ -94,12 +99,8 @@ const handleOrderClick = () => {
             <div className="flex-1">
               <h3 className="text-lg font-bold mb-1">{`${profile.firstName} ${profile.lastName}`}</h3>
               <p className="text-sm text-gray-600 mb-2">{profile.bio || 'Freelancer'}</p>
-              <p className="text-gray-700">
-                Skills: {profile.skills || 'Not specified'}
-              </p>
-              <p className="text-gray-700">
-                Experience: {profile.experience || 'Not specified'}
-              </p>
+              <p className="text-gray-700">Skills: {profile.skills || 'Not specified'}</p>
+              <p className="text-gray-700">Experience: {profile.experience || 'Not specified'}</p>
             </div>
           </div>
         ) : (

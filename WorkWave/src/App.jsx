@@ -24,6 +24,7 @@ import HomePage from './pages/Home';
 import TermsOfServices from './pages/TermsOfService';
 import CookiesPolicy from './pages/CookiesPolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import FreelancerProfile from './pages/FreelancerProfile';
 
 
 
@@ -75,6 +76,7 @@ const Layout = ({ isLoggedIn, setIsLoggedIn, onLogout }) => {
                     <Route path="/cookies" element={<CookiesPolicy />} />
                     <Route path="/privacy" element={<PrivacyPolicy />} />
                     <Route path="/selection" element={<Selection />} />
+                    <Route path='/freelancer-profile'element={<FreelancerProfile/>}/>
                     <Route path="/marketplace" element={<MarketPlace />} />
                     <Route path="/marketplace/:cardName" element={<CardDetail />} />
                     <Route path="/marketplace/:authorName/payment" element={<PaymentPage />} />

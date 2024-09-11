@@ -32,7 +32,7 @@ const Dashboard = () => {
                                 </svg>
                             </button>
 
-                            <a href="#" className="flex ms-2 md:me-24">
+                            <a href="homepage" className="flex ms-2 md:me-24">
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap " style={{color:'orange'}}>WorkWave</span>
                             </a>
                         </div>

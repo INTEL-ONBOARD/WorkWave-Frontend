@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaGlobe } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { saveUserSession, saveUserProfileSession } from '../utils/session'; // Import session utility
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -11,13 +13,61 @@ const SignUp = () => {
         country: 'United States',
     });
 
-    const countries = ["Sri Lanka", "United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "India", "Brazil", "Japan", "South Africa", "Singapore", "Netherlands", "Sweden", "Switzerland", "Italy", "Spain", "Mexico", "Russia", "China", "South Korea", "New Zealand", "Norway", "Finland", "Denmark", "Ireland", "Belgium", "Austria", "Argentina", "Colombia", "Chile", "Malaysia", "Thailand", "Philippines", "Vietnam", "Indonesia", "Israel", "Saudi Arabia", "United Arab Emirates", "Turkey", "Egypt", "Nigeria", "Kenya", "Ghana", "Bangladesh", "Pakistan", "Ukraine", "Poland", "Portugal", "Greece", "Czech Republic", "Romania", "Hungary", "Iceland", "Luxembourg", "Malta", "Estonia", "Latvia", "Lithuania"];
+    const navigate = useNavigate();
+
+    const countries = [
+        "Sri Lanka", "United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "India", "Brazil",
+        "Japan", "South Africa", "Singapore", "Netherlands", "Sweden", "Switzerland", "Italy", "Spain", "Mexico", 
+        "Russia", "China", "South Korea", "New Zealand", "Norway", "Finland", "Denmark", "Ireland", "Belgium", 
+        "Austria", "Argentina", "Colombia", "Chile", "Malaysia", "Thailand", "Philippines", "Vietnam", "Indonesia", 
+        "Israel", "Saudi Arabia", "United Arab Emirates", "Turkey", "Egypt", "Nigeria", "Kenya", "Ghana", 
+        "Bangladesh", "Pakistan", "Ukraine", "Poland", "Portugal", "Greece", "Czech Republic", "Romania", "Hungary", 
+        "Iceland", "Luxembourg", "Malta", "Estonia", "Latvia", "Lithuania"
+    ];
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.id]: e.target.value,
         });
+    };
+
+    const handleLogin = async (email, password) => {
+        try {
+            const response = await fetch('http://localhost:8081/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            if (response.status === 200) {
+                const data = await response.json();
+                saveUserSession(data);
+
+                // If user is a freelancer, fetch their profile
+                if (data.role.replace(/"/g, '') === 'Freelancer') {
+                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/${data.id}`);
+                    
+                    if (profileResponse.ok) {
+                        const profileData = await profileResponse.json();
+                        saveUserProfileSession(profileData);
+                    } else {
+                        console.error('Failed to fetch profile');
+                    }
+                }
+
+                navigate('/dashboard');
+            } else {
+                alert('Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            alert('Login error: ' + error.message);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -51,7 +101,9 @@ const SignUp = () => {
 
             if (response.ok) {
                 alert("Registration successful!");
-                // Redirect to login page or another action
+                
+                // Automatically log in the user after successful sign-up
+                await handleLogin(formData.email, formData.password);
             } else {
                 const errorData = await response.json();
                 alert(`Registration failed: ${errorData.message}`);
@@ -162,30 +214,15 @@ const SignUp = () => {
                         </select>
                     </div>
 
-                    <div className="mb-6">
-                        <label className="flex items-center">
-                            <input
-                                type="checkbox"
-                                className="form-checkbox text-gray-700 border-gray-300 rounded focus:ring-0 transition duration-150 ease-in-out"
-                            />
-                            <span className="ml-2 text-gray-700">
-                                I agree to the <a href="/terms" className="text-blue-500 hover:text-blue-700">Terms of Service</a>
-                            </span>
-                        </label>
-                    </div>
-
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center mt-6">
                         <button
                             type="submit"
-                            className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full md:w-auto"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                             Sign Up
                         </button>
                     </div>
                 </form>
-                <p className="mt-6 text-center text-gray-600">
-                    Already have an account? <a href="/login" className="text-blue-500 hover:text-blue-700">Log in</a>
-                </p>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { getUserSession } from '../../../utils/session'; // Adjust the path if needed
+import { getUserSession } from '../../../utils/session'; 
 
-const Form = () => {
+const Form = ({ onSuccess }) => {  
   const [title, setTitle] = useState('');
   const [miniDescription, setMiniDescription] = useState('');
   const [description, setDescription] = useState('');
@@ -10,19 +10,17 @@ const Form = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [error, setError] = useState('');
 
-  // Retrieve the user profile from session storage
   const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
+  console.log(userProfile);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Form validation
     if (!title || !miniDescription || !description || !category || !price || !coverImage) {
       setError('Please fill all required fields.');
       return;
     }
   
-    // Prepare form data
     const formData = new FormData();
     formData.append('title', title);
     formData.append('miniDescription', miniDescription);
@@ -31,9 +29,8 @@ const Form = () => {
     formData.append('price', price);
     formData.append('coverImage', coverImage);
   
-    // Include user ID from the profile if available
-    if (userProfile && userProfile.id) {
-      formData.append('freelancerId', userProfile.id); // Correct key
+    if (userProfile && userProfile.userId) {
+      formData.append('freelancerId', userProfile.userId); 
     } else {
       setError('User profile is missing.');
       return;
@@ -48,7 +45,7 @@ const Form = () => {
       if (response.ok) {
         const result = await response.json();
         console.log('Service created successfully:', result);
-        // Optionally, navigate to another page or show a success message
+        if (onSuccess) onSuccess();  
       } else {
         const errorMessage = await response.text();
         console.error('Error creating service:', errorMessage);
@@ -59,7 +56,6 @@ const Form = () => {
       setError('An unexpected error occurred. Please try again.');
     }
   };
-  
   
 
   return (

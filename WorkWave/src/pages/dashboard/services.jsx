@@ -4,18 +4,22 @@ import Form from './service-components/form';
 import UpdateForm from './service-components/form_update';
 
 const Services = () => {
-    const [currentView, setCurrentView] = useState('listView'); // Initialize to list view
+    const [currentView, setCurrentView] = useState('listView'); 
 
     const handleListClick = () => {
-        setCurrentView('listView'); // Show the list view
+        setCurrentView('listView'); 
     };
 
     const handleFormClick = () => {
-        setCurrentView('formView'); // Show the form view
+        setCurrentView('formView'); 
     };
 
     const handleUpdateClick = () => {
-        setCurrentView('updateView'); // Show the update form view
+        setCurrentView('updateView'); 
+    };
+
+    const handleFormSuccess = () => {
+        setCurrentView('listView'); 
     };
 
     return (
@@ -24,13 +28,13 @@ const Services = () => {
                 <View onButtonClick={handleFormClick} onsingleClick={handleUpdateClick} />
             )}
             {currentView === 'formView' && (
-                <Form />
+                <Form onSuccess={handleFormSuccess} />  
             )}
             {currentView === 'updateView' && (
                 <UpdateForm />
             )}
         </>
     );
-}
+};
 
 export default Services;

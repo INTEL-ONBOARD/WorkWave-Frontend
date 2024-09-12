@@ -60,6 +60,7 @@ const CreateProfile = () => {
   
         if (updateRoleResponse.ok) {
           alert('Profile created and role updated to Freelancer successfully!');
+          sessionStorage.setItem('userProfile', JSON.stringify(profile));
         } else {
           alert('Profile created, but failed to update role.');
         }

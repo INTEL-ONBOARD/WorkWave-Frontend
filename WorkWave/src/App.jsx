@@ -33,6 +33,7 @@ import FreelancerProfile from './pages/FreelancerProfile';
 const App = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
 
     // Check session storage on component mount
     useEffect(() => {

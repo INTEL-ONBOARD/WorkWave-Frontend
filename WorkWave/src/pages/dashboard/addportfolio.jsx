@@ -32,12 +32,11 @@ const CreateProfile = () => {
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      // Create the profile
+  
+    try { 
+      console.log("Sending request with profile data:", profile); // Debugging line
       const response = await fetch('http://localhost:8082/api/Profile/createProfile', {
         method: 'POST',
         headers: {
@@ -45,17 +44,20 @@ const CreateProfile = () => {
         },
         body: JSON.stringify(profile),
       });
-
+  
+      console.log("Response status:", response.status); // Debugging line
+      const responseData = await response.json();
+      console.log("Response data:", responseData); // Debugging line
+  
       if (response.ok) {
-        // After creating the profile, update the user role
         const updateRoleResponse = await fetch(`http://localhost:8081/api/users/${profile.userId}/role`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify("Freelancer"), // New role value
+          body: JSON.stringify("Freelancer"),
         });
-
+  
         if (updateRoleResponse.ok) {
           alert('Profile created and role updated to Freelancer successfully!');
         } else {
@@ -68,6 +70,7 @@ const CreateProfile = () => {
       alert('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">

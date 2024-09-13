@@ -31,7 +31,7 @@ const Login = () => {
     
                 // Check if user is a freelancer
                 if (data.role.replace(/"/g, '') === 'Freelancer') {
-                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/${data.id}`);
+                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/user/${data.id}`);
                     
                     if (profileResponse.ok) {
                         const profileData = await profileResponse.json();

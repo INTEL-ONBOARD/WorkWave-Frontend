@@ -1,10 +1,11 @@
 // Categories.js
 import React, { useState } from "react";
 
-const Categories = ({ onCategoryChange }) => { // Add onCategoryChange as a prop
+const Categories = ({ onCategoryChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const categories = [
+    "All Categories", // Adding an option to reset the category
     "Programming & Tech",
     "Graphics & Design",
     "Digital Marketing",
@@ -17,8 +18,15 @@ const Categories = ({ onCategoryChange }) => { // Add onCategoryChange as a prop
   ];
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    onCategoryChange(category); // Notify MarketPlace about the category change
+    if (category === "All Categories") {
+      // Reset the category filter
+      setSelectedCategory(null);
+      onCategoryChange(''); // Notify MarketPlace to reset the filter
+    } else {
+      // Set the selected category and notify MarketPlace
+      setSelectedCategory(category);
+      onCategoryChange(category);
+    }
   };
 
   return (
@@ -33,9 +41,7 @@ const Categories = ({ onCategoryChange }) => { // Add onCategoryChange as a prop
             }`}
             onClick={() => handleCategoryClick(category)}
           >
-            {selectedCategory === category && (
-              <span className="mr-2">➡️</span>
-            )}
+            {selectedCategory === category && <span className="mr-2">➡️</span>}
             {category}
           </li>
         ))}

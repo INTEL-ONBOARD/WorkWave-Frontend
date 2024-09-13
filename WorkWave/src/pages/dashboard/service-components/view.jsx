@@ -5,26 +5,33 @@ const View = ({ onButtonClick, onsingleClick }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
+    const fetchServices = async () => {
+      try {
+        const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
 
-    if (userProfile && userProfile.userId) {
-      fetch(`http://localhost:8083/api/ListService/services/freelancer/${userProfile.userId}`)
-        .then(response => {
+        if (userProfile && userProfile.userId) {
+          const response = await fetch(`http://localhost:8083/api/ListService/services/freelancer/${userProfile.userId}`);
+          
           if (!response.ok) {
             throw new Error('Failed to fetch services');
           }
-          return response.json();
-        })
-        .then(data => setServices(data))
-        .catch(err => setError(err.message));
-    } else {
-      setError('User profile is missing.');
-    }
+
+          const data = await response.json();
+          setServices(data);
+        } else {
+          setError('User profile is missing.');
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchServices();
   }, []);
 
   return (
     <>
-      <div className="flex items-start justify-start bg-gray-100 w-full" style={{ "margin-top": "3.5rem" }}>
+      <div className="flex items-start justify-start bg-gray-100 w-full" style={{ marginTop: "3.5rem" }}>
         <section className="bg-white w-full">
           <div className="container flex flex-col items-center px-4 py-12 mx-auto text-center">
             <h2 className="max-w-2xl mx-auto text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl">
@@ -54,7 +61,8 @@ const View = ({ onButtonClick, onsingleClick }) => {
           </div>
         </section>
       </div>
-      <div className="flex items-start justify-start min-h-screen bg-gray-100 w-full" style={{ "margin-top": "1rem" }}>
+
+      <div className="flex items-start justify-start min-h-screen bg-gray-100 w-full" style={{ marginTop: "1rem" }}>
         <section className="bg-white w-full">
           <div className="container px-6 py-8 mx-auto">
             <h2 className="text-lg font-medium text-gray-800">Your Services</h2>
@@ -73,7 +81,9 @@ const View = ({ onButtonClick, onsingleClick }) => {
                   </a>
                 </div>
               </div>
-              <button type="button" className="focus:outline-none text-white bg-orange-600 hover:bg-orange-500 font-medium rounded-lg px-4 py-1.5 me-2 mb-2 text-md" onClick={onButtonClick}>Create a Service</button>
+              <button type="button" className="focus:outline-none text-white bg-orange-600 hover:bg-orange-500 font-medium rounded-lg px-4 py-1.5 me-2 mb-2 text-md" onClick={onButtonClick}>
+                Create a Service
+              </button>
             </div>
             {error && <p className="text-red-500 mb-4">{error}</p>}
             <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -85,13 +95,18 @@ const View = ({ onButtonClick, onsingleClick }) => {
                       <p className="mt-1 text-sm text-gray-600">{service.miniDescription}</p>
                     </div>
                     <img
-  className="object-cover w-full h-48 mt-2"
-  src={service.coverImage ? `data:image/jpeg;base64,${service.coverImage}` : 'https://via.placeholder.com/320x180'}
-  alt={service.title || 'Service Image'}
-/>
+                      className="object-cover w-full h-48 mt-2"
+                      src={service.coverImage ? `data:image/jpeg;base64,${service.coverImage}` : 'https://via.placeholder.com/320x180'}
+                      alt={service.title || 'Service Image'}
+                    />
                     <div className="flex items-center justify-between px-4 py-2 bg-orange-400">
                       <h1 className="text-lg font-bold text-white">${service.price}</h1>
-                      <button className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none" onClick={() => onsingleClick(service.id)}>Select</button>
+                      <button
+                        className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+                        onClick={() => onsingleClick(service)}
+                      >
+                        Select
+                      </button>
                     </div>
                   </div>
                 ))

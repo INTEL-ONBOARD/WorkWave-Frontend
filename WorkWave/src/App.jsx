@@ -27,9 +27,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import FreelancerProfile from './pages/FreelancerProfile';
 
 
-
-
-
 const App = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);

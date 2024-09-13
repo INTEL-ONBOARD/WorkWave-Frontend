@@ -203,7 +203,7 @@ const Navbar = () => {
       </div>
 
       {isMarketPlace && (
-  <div className="relative flex justify-center items-center  z-10"> {/* Adjusted margin-bottom */}
+  <div className="relative flex justify-center items-center z-10" style={{ top: '20px' }}> {/* Added top value */}
     <div className="relative w-2/4">
       <input
         type="text"
@@ -222,6 +222,7 @@ const Navbar = () => {
     </div>
   </div>
 )}
+
 
     </nav>
   );

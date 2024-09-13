@@ -33,13 +33,18 @@ const CardDetail = () => {
   const handleOrderClick = () => {
     if (authorName) {
       navigate(`/marketplace/${encodeURIComponent(authorName)}/payment`, {
-        state: { title, price }, // Pass the title and price to the PaymentPage
+        state: {
+          title,
+          price,
+          id, // Passing id to PaymentPage
+          freelancerId, // Passing freelancerId to PaymentPage
+        },
       });
     } else {
       console.error('Author name is not available.');
     }
   };
-
+  
   const handleProfileClick = () => {
     if (freelancerId) {
       navigate(`/freelancer-profile`, { state: { freelancerId } });

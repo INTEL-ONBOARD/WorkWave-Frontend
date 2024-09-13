@@ -13,6 +13,8 @@ const PaymentPage = () => {
     { id: 2, cardType: '/path/to/mastercard-icon.png', lastDigits: '5643', expiryDate: '11/2025', selected: false },
   ]);
 
+  const [hiddenInfo, setHiddenInfo] = useState(null);
+
   const handleSelect = (id) => {
     setPaymentMethods((methods) =>
       methods.map((method) =>
@@ -23,6 +25,19 @@ const PaymentPage = () => {
 
   const handleRemove = (id) => {
     setPaymentMethods((methods) => methods.filter((method) => method.id !== id));
+  };
+
+  const handlePlaceOrder = () => {
+    // Retrieve hidden information from session storage
+    const user = JSON.parse(sessionStorage.getItem('user')); // Get user data from session storage
+    const userId = user?.id; // Extract userId from the session data
+
+    // Retrieve hidden information from location state
+    const id = location.state?.id;
+    const freelancerId = location.state?.freelancerId;
+
+    // Set the hidden information to state for display
+    setHiddenInfo({ id, freelancerId, userId });
   };
 
   return (
@@ -66,7 +81,6 @@ const PaymentPage = () => {
             <p>Shipping</p>
             <p className="text-orange-500">Free</p>
           </div>
-          {/* Remove the discount section */}
           <hr className="my-2" />
           <div className="flex justify-between font-bold">
             <p>TOTAL</p>
@@ -82,9 +96,22 @@ const PaymentPage = () => {
             className="w-full p-2 border rounded-md mt-2"
           />
         </div>
-        <button className="bg-orange-500 text-white w-full py-3 rounded-md">
+        <button
+          className="bg-orange-500 text-white w-full py-3 rounded-md"
+          onClick={handlePlaceOrder}
+        >
           Place Your Order and Pay
         </button>
+
+        {/* Display Hidden Information */}
+        {hiddenInfo && (
+          <div className="mt-4 p-4 border rounded-md bg-gray-100">
+            <h3 className="font-semibold">Hidden Information:</h3>
+            <p>Gig ID: {hiddenInfo.id || 'N/A'}</p>
+            <p>Freelancer ID: {hiddenInfo.freelancerId || 'N/A'}</p>
+            <p>User ID: {hiddenInfo.userId || 'N/A'}</p>
+          </div>
+        )}
       </div>
     </div>
   );

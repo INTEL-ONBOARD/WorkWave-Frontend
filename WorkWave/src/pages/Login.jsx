@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For redirection
-import { saveUserSession, saveUserProfileSession } from '../utils/session'; // Import session utility
-
+import { useNavigate } from 'react-router-dom'; 
+import { saveUserSession, saveUserProfileSession } from '../utils/session'; 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [hovered, setHovered] = useState(false);
-    const navigate = useNavigate(); // For redirection
+    const navigate = useNavigate(); 
 
     const handleLogin = async () => {
-        setError(''); // Clear any previous error
+        setError(''); 
     
         try {
             const response = await fetch('http://localhost:8081/api/users/login', {
@@ -27,22 +26,21 @@ const Login = () => {
             if (response.status === 200) {
                 const data = await response.json();
                 console.log('Login successful:', data);
-                saveUserSession(data); // Save user session
+                saveUserSession(data); 
     
-                // Check if user is a freelancer
                 if (data.role.replace(/"/g, '') === 'Freelancer') {
-                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/user/${data.id}`);
+                    const profileResponse = await fetch(`http://localhost:8082/api/Profile/${data.id}`);
                     
                     if (profileResponse.ok) {
                         const profileData = await profileResponse.json();
                         console.log('Profile data:', profileData);
-                        saveUserProfileSession(profileData); // Save profile session
+                        saveUserProfileSession(profileData); 
                     } else {
                         console.error('Failed to fetch profile');
                     }
                 }
     
-                navigate('/dashboard'); // Redirect to dashboard or home
+                navigate('/dashboard'); 
             } else if (response.status === 401) {
                 setError('Invalid email or password');
             } else {

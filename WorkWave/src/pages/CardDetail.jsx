@@ -56,11 +56,13 @@ const CardDetail = () => {
       <Breadcrumbs />
       <h1 className="text-2xl font-bold text-center mb-6">{title || 'Default Title'}</h1>
       <div className="flex flex-col items-center mb-8">
-        <img
-          src={imageSrc || 'https://via.placeholder.com/600x300'}
-          alt={title}
-          className="rounded-2xl shadow-md w-full mb-4"
-        />
+      <img
+  src={imageSrc || 'https://via.placeholder.com/600x300'}
+  alt={title}
+  className="rounded-2xl shadow-md w-full mb-4"
+  style={{ height: '400px', objectFit: 'cover' }} // Adjust height and fit
+/>
+
 
         <h2 className="text-lg font-semibold mb-2 self-start">Service Cost</h2>
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const FormUpdate = ({ service }) => {
   const [formData, setFormData] = useState({
@@ -8,11 +7,11 @@ const FormUpdate = ({ service }) => {
     price: '',
     title: '',
     miniDescription: '',
-    description: '' 
+    description: ''
   });
   const [error, setError] = useState('');
-  
-  const { id } = service || {}; 
+
+  const { id } = service || {};
 
   useEffect(() => {
     if (service) {
@@ -22,7 +21,7 @@ const FormUpdate = ({ service }) => {
         price: service.price || '',
         title: service.title || '',
         miniDescription: service.miniDescription || '',
-        description: service.description || '' 
+        description: service.description || ''
       });
     }
   }, [service]);
@@ -38,15 +37,13 @@ const FormUpdate = ({ service }) => {
   const handleFileChange = (e) => {
     setFormData(prevData => ({
       ...prevData,
-      coverImage: e.target.files[0] 
+      coverImage: e.target.files[0]
     }));
   };
 
-  // Submit form data to the API
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Validate required fields
+
     if (!formData.title || !formData.miniDescription || !formData.description || !formData.category || !formData.price) {
       setError('Please fill all required fields.');
       return;
@@ -63,22 +60,28 @@ const FormUpdate = ({ service }) => {
         formDataToSend.append('coverImage', coverImage);
       }
 
-      // Send PUT request to update the service
-      const response = await axios.put(`http://localhost:8083/api/ListService/${id}`, formDataToSend, {
+      const response = await fetch(`http://localhost:8083/api/ListService/${id}`, {
+        method: 'PUT',
+        body: formDataToSend,
         headers: {
-          'Content-Type': 'multipart/form-data' // Set content type for file upload
+          // 'Content-Type': 'multipart/form-data' // Not needed here; fetch handles it
         }
       });
 
-      console.log('Service updated successfully:', response.data);
-      
-      
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Service updated successfully:', result);
+      } else {
+        const errorMessage = await response.text();
+        console.error('Error updating service:', errorMessage);
+        setError('Failed to update the service. Please try again.');
+      }
     } catch (error) {
-      console.error('Error updating service:', error.response ? error.response.data : error.message);
-      setError('Failed to update the service. Please try again.');
+      console.error('Error during form submission:', error);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
-  
+
   return (
     <div className="py-5 bg-white w-full grid md:grid-cols-2 md:gap-6" style={{ marginTop: '4rem' }}>
       <div className="flex items-center justify-center p-5 w-full">
@@ -90,7 +93,7 @@ const FormUpdate = ({ service }) => {
           <p className="max-w-lg mt-6 text-gray-500">
             “ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore quibusdam ducimus libero ad
             tempora doloribus expedita laborum saepe voluptas perferendis delectus assumenda rerum, culpa
-            aperiam dolorum, obcaecati corrupti aspernatur a. ” 
+            aperiam dolorum, obcaecati corrupti aspernatur a. ”
           </p>
           <h3 className="mt-6 text-lg font-medium text-orange-500">Mia Brown</h3>
           <p className="text-gray-600">Marketing Manager at Stech</p>

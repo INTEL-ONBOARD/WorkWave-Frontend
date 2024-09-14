@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const UserSettings = () => {
     // State for storing form data
@@ -14,6 +15,8 @@ const UserSettings = () => {
         country: '',
         password: ''
     });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
 
     // Fetch credit card details when the component is mounted
     useEffect(() => {
@@ -45,10 +48,19 @@ const UserSettings = () => {
     // Fetch user information from the specific API endpoint
     useEffect(() => {
         const fetchUserInfo = async () => {
+            const userSession = JSON.parse(sessionStorage.getItem('user'));
+            const userId = userSession ? userSession.id : null;
+
+            if (!userId) {
+                setError('User session not found');
+                setLoading(false);
+                return;
+            }
+
             try {
-                const response = await fetch(`http://localhost:8081/api/users/7`);
-                if (response.ok) {
-                    const userData = await response.json();
+                const response = await axios.get(`http://localhost:8081/api/users/user/${userId}`);
+                if (response.status === 200) {
+                    const userData = response.data;
                     setUserInfo({
                         firstName: userData.firstName,
                         lastName: userData.lastName,
@@ -62,6 +74,9 @@ const UserSettings = () => {
                 }
             } catch (error) {
                 console.error('Error fetching user information:', error);
+                setError('Failed to fetch user information');
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -112,6 +127,14 @@ const UserSettings = () => {
         e.preventDefault();
         // Handle user information form submission logic here (e.g., saving user profile details)
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div className="flex items-start justify-start min-h-screen bg-gray-100" style={{ marginTop: '3.5rem' }}>
@@ -200,21 +223,8 @@ const UserSettings = () => {
                             />
                         </div>
 
-                            {/* Password
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={userInfo.password}
-                                    onChange={handleUserInfoChange}
-                                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                    placeholder="Enter password"
-                                />
-                            </div> */}
+                        {/* Password */}
+                        {/* Password should not be pre-filled for security reasons */}
 
                         <div className="mt-6">
                             <button
@@ -307,14 +317,12 @@ const UserSettings = () => {
                             </label>
                         </div>
 
-                        <div className="mt-6">
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200"
-                            >
-                                Save Payment Details
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200"
+                        >
+                            Save Payment Information
+                        </button>
                     </form>
                 </div>
             </div>

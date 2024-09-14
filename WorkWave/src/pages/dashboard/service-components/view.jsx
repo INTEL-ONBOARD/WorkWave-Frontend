@@ -35,7 +35,7 @@ const View = ({ onButtonClick, onsingleClick }) => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:8083/api/ListService/delete/${serviceId}`, {
+      const response = await fetch(`http://localhost:8083/api/ListService/${serviceId}`, {
         method: 'DELETE',
       });
 

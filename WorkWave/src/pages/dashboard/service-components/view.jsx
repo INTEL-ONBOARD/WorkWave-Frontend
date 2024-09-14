@@ -13,7 +13,7 @@ const View = ({ onButtonClick, onsingleClick }) => {
           const response = await fetch(`http://localhost:8083/api/ListService/services/freelancer/${userProfile.userId}`);
           
           if (!response.ok) {
-            throw new Error('Failed to fetch services');
+            throw new Error('');
           }
 
           const data = await response.json();

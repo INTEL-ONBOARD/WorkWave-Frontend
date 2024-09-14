@@ -51,8 +51,9 @@ const Navbar = () => {
 
   // Function to handle title click
   const handleTitleClick = () => {
-    navigate('/marketplace');
+    navigate('/marketplace', { replace: true });
   };
+  
 
   return (
     <nav

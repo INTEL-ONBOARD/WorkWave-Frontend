@@ -11,7 +11,7 @@ const Form = ({ onSuccess }) => {
   const [error, setError] = useState('');
 
   const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
-  console.log(userProfile);
+  //console.log(userProfile);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,8 +30,9 @@ const Form = ({ onSuccess }) => {
     formData.append('coverImage', coverImage);
 
     // Instead of checking userProfile.userId, check userProfile.id
-    if (userProfile && userProfile.id) {
-      formData.append('freelancerId', userProfile.id);  // Using the correct 'id'
+    if (userProfile && userProfile.userId) {
+      formData.append('freelancerId', userProfile.userId);  // Using the correct 'id'
+      console.log(userProfile.userId);
     } else {
       setError('User profile is missing.');
       return;

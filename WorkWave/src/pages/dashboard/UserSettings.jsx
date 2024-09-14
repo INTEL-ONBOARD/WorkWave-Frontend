@@ -42,31 +42,26 @@ const UserSettings = () => {
         fetchCreditCardInfo();
     }, []);
 
-    // Fetch user information (optional functionality, in case you need to prepopulate the form)
+    // Fetch user information from the specific API endpoint
     useEffect(() => {
         const fetchUserInfo = async () => {
-            const user = JSON.parse(sessionStorage.getItem('user'));
-            const userId = user ? user.id : null;
-
-            if (userId) {
-                try {
-                    const response = await fetch(`http://localhost:8085/api/User/${userId}`);
-                    if (response.ok) {
-                        const userData = await response.json();
-                        setUserInfo({
-                            firstName: userData.firstName,
-                            lastName: userData.lastName,
-                            email: userData.email,
-                            role: userData.role,
-                            country: userData.country,
-                            password: '' // Password should not be pre-filled for security reasons
-                        });
-                    } else {
-                        console.error('Failed to fetch user information');
-                    }
-                } catch (error) {
-                    console.error('Error fetching user information:', error);
+            try {
+                const response = await fetch(`http://localhost:8081/api/users/7`);
+                if (response.ok) {
+                    const userData = await response.json();
+                    setUserInfo({
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        role: userData.role,
+                        country: userData.country,
+                        password: '' // Password should not be pre-filled for security reasons
+                    });
+                } else {
+                    console.error('Failed to fetch user information');
                 }
+            } catch (error) {
+                console.error('Error fetching user information:', error);
             }
         };
 
@@ -205,21 +200,21 @@ const UserSettings = () => {
                             />
                         </div>
 
-                        {/* Password */}
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={userInfo.password}
-                                onChange={handleUserInfoChange}
-                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                                placeholder="Enter password"
-                            />
-                        </div>
+                            {/* Password
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={userInfo.password}
+                                    onChange={handleUserInfoChange}
+                                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter password"
+                                />
+                            </div> */}
 
                         <div className="mt-6">
                             <button
@@ -270,7 +265,7 @@ const UserSettings = () => {
                                 htmlFor="cardName"
                                 className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
-                                Cardholder Name
+                                Card Holder Name
                             </label>
                         </div>
 
@@ -317,7 +312,7 @@ const UserSettings = () => {
                                 type="submit"
                                 className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200"
                             >
-                                Save Credit Card
+                                Save Payment Details
                             </button>
                         </div>
                     </form>

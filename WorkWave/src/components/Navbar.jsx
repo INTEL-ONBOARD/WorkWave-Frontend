@@ -49,6 +49,11 @@ const Navbar = () => {
   // Function to determine if the current path matches the link path
   const isActiveLink = (path) => location.pathname === path;
 
+  // Function to handle title click
+  const handleTitleClick = () => {
+    navigate('/marketplace');
+  };
+
   return (
     <nav
       className={`relative py-6 ${
@@ -64,70 +69,72 @@ const Navbar = () => {
         </div>
       )}
       <div className="relative container mx-auto flex justify-between items-center px-6 z-10">
-        <div className={`text-4xl font-bold ${isMarketPlace ? 'text-white' : 'text-white'}`}>
+        <div
+          className={`text-4xl font-bold cursor-pointer ${isMarketPlace ? 'text-white' : 'text-white'}`}
+          onClick={handleTitleClick} // Add click handler here
+        >
           WorkWave
         </div>
 
         <div className="flex-1 flex justify-center space-x-8">
-  {/* Links with active underline */}
-  <Link
-    to="/homepage"
-    className={`flex items-center relative ${
-      isActiveLink('/homepage')
-        ? 'text-white hover:text-gray-200'
-        : 'text-white hover:text-gray-200'
-    }`}
-  >
-    <FaHome size={24} className="mr-2" />
-    Home
-    {isActiveLink('/homepage') && (
-      <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
-    )}
-  </Link>
-  <Link
-    to="/marketplace"
-    className={`flex items-center relative ${
-      isActiveLink('/marketplace')
-        ? 'text-white hover:text-gray-200'
-        : 'text-white hover:text-gray-200'
-    }`}
-  >
-    <FaShoppingCart size={24} className="mr-2" />
-    Market Place
-    {isActiveLink('/marketplace') && (
-      <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
-    )}
-  </Link>
-  <Link
-    to="/contact"
-    className={`flex items-center relative ${
-      isActiveLink('/contact')
-        ? 'text-white hover:text-gray-200'
-        : 'text-white hover:text-gray-200'
-    }`}
-  >
-    <FaEnvelope size={24} className="mr-2" />
-    Contact us
-    {isActiveLink('/contact') && (
-      <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
-    )}
-  </Link>
-  <Link
-    to="/about"
-    className={`flex items-center relative ${
-      isActiveLink('/about')
-        ? 'text-white hover:text-gray-200'
-        : 'text-white hover:text-gray-200'
-    }`}
-  >
-    <FaInfoCircle size={24} className="mr-2" />
-    About us
-    {isActiveLink('/about') && (
-      <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
-    )}
-  </Link>
-</div>
-
+          {/* Links with active underline */}
+          <Link
+            to="/homepage"
+            className={`flex items-center relative ${
+              isActiveLink('/homepage')
+                ? 'text-white hover:text-gray-200'
+                : 'text-white hover:text-gray-200'
+            }`}
+          >
+            <FaHome size={24} className="mr-2" />
+            Home
+            {isActiveLink('/homepage') && (
+              <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
+            )}
+          </Link>
+          <Link
+            to="/marketplace"
+            className={`flex items-center relative ${
+              isActiveLink('/marketplace')
+                ? 'text-white hover:text-gray-200'
+                : 'text-white hover:text-gray-200'
+            }`}
+          >
+            <FaShoppingCart size={24} className="mr-2" />
+            Market Place
+            {isActiveLink('/marketplace') && (
+              <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
+            )}
+          </Link>
+          <Link
+            to="/contact"
+            className={`flex items-center relative ${
+              isActiveLink('/contact')
+                ? 'text-white hover:text-gray-200'
+                : 'text-white hover:text-gray-200'
+            }`}
+          >
+            <FaEnvelope size={24} className="mr-2" />
+            Contact us
+            {isActiveLink('/contact') && (
+              <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
+            )}
+          </Link>
+          <Link
+            to="/about"
+            className={`flex items-center relative ${
+              isActiveLink('/about')
+                ? 'text-white hover:text-gray-200'
+                : 'text-white hover:text-gray-200'
+            }`}
+          >
+            <FaInfoCircle size={24} className="mr-2" />
+            About us
+            {isActiveLink('/about') && (
+              <span className="absolute bottom-[-9px] left-0 w-full h-2 bg-white rounded-full"></span>
+            )}
+          </Link>
+        </div>
 
         <div className="flex space-x-4 items-center">
           {user ? (
@@ -203,27 +210,25 @@ const Navbar = () => {
       </div>
 
       {isMarketPlace && (
-  <div className="relative flex justify-center items-center z-10" style={{ top: '20px' }}> {/* Added top value */}
-    <div className="relative w-2/4">
-      <input
-        type="text"
-        placeholder="Search here..."
-        value={searchQuery}
-        onChange={handleInputChange}
-        className="w-full py-3 px-6 pr-14 rounded-full border-none shadow-sm placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-        style={{ backgroundColor: '#FFF' }}
-      />
-      <button
-        className="absolute inset-y-0 right-0 flex items-center pr-4"
-        style={{ color: '#F27A1A' }}
-      >
-        <img src={searchIcon} alt="Search" className="h-5 w-5" />
-      </button>
-    </div>
-  </div>
-)}
-
-
+        <div className="relative flex justify-center items-center z-10" style={{ top: '20px' }}> {/* Added top value */}
+          <div className="relative w-2/4">
+            <input
+              type="text"
+              placeholder="Search here..."
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="w-full py-3 px-6 pr-14 rounded-full border-none shadow-sm placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              style={{ backgroundColor: '#FFF' }}
+            />
+            <button
+              className="absolute inset-y-0 right-0 flex items-center pr-4"
+              style={{ color: '#F27A1A' }}
+            >
+              <img src={searchIcon} alt="Search" className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

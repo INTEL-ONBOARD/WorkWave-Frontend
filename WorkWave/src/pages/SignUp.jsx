@@ -61,7 +61,7 @@ const SignUp = () => {
                     }
                 }
 
-                navigate('/dashboard');
+                navigate('/login');
             } else {
                 alert('Login failed. Please check your credentials.');
             }

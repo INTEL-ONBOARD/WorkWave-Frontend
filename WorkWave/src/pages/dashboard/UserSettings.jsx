@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const UserSettings = () => {
     // State for storing form data
@@ -6,15 +6,80 @@ const UserSettings = () => {
     const [cardName, setCardName] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
     const [cvv, setCvv] = useState('');
+    const [userInfo, setUserInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: '',
+        country: '',
+        password: ''
+    });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-    
-        // Retrieve user ID from sessionStorage
+    // Fetch credit card details when the component is mounted
+    useEffect(() => {
+        const fetchCreditCardInfo = async () => {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            const userId = user ? user.id : null;
+
+            if (userId) {
+                try {
+                    const response = await fetch(`http://localhost:8085/api/Payment/credit-card/${userId}`);
+                    if (response.ok) {
+                        const creditCardData = await response.json();
+                        setCardName(creditCardData.cardHolderName);
+                        setCardNumber(creditCardData.cardNumber);
+                        setExpiryDate(creditCardData.expiryDate);
+                        setCvv(creditCardData.cvv);
+                    } else {
+                        console.error('Failed to fetch credit card details');
+                    }
+                } catch (error) {
+                    console.error('Error fetching credit card details:', error);
+                }
+            }
+        };
+
+        fetchCreditCardInfo();
+    }, []);
+
+    // Fetch user information from the specific API endpoint
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/api/users/7`);
+                if (response.ok) {
+                    const userData = await response.json();
+                    setUserInfo({
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        role: userData.role,
+                        country: userData.country,
+                        password: '' // Password should not be pre-filled for security reasons
+                    });
+                } else {
+                    console.error('Failed to fetch user information');
+                }
+            } catch (error) {
+                console.error('Error fetching user information:', error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
+
+    const handleUserInfoChange = (e) => {
+        setUserInfo({
+            ...userInfo,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleCreditCardSubmit = async (e) => {
+        e.preventDefault();
         const user = JSON.parse(sessionStorage.getItem('user'));
         const userId = user ? user.id : null;
-    
-        // Prepare payment data
+
         const paymentData = {
             cardHolderName: cardName,
             userId: userId,
@@ -22,7 +87,7 @@ const UserSettings = () => {
             expiryDate: expiryDate,
             cvv: cvv
         };
-    
+
         try {
             const response = await fetch('http://localhost:8085/api/Payment/save-credit-card', {
                 method: 'POST',
@@ -31,46 +96,146 @@ const UserSettings = () => {
                 },
                 body: JSON.stringify(paymentData),
             });
-    
-            // Log the response text to inspect its content
-            // const responseText = await response.text();
-            // console.log('Response Text:', responseText);
-    
-            // Attempt to parse JSON only if the response is valid JSON
-            try {
-                const result = JSON.parse(responseText);
-                console.log('Success:', result);
-                // Handle success (e.g., show a success message or redirect)
-            } catch (jsonError) {
-                console.error('JSON Error:', jsonError);
-                // Handle case where response is not valid JSON
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Credit card details saved successfully:', result);
+            } else {
+                console.error('Failed to save credit card details');
             }
         } catch (error) {
-            console.error('Error:', error);
-            // Handle network or other errors
+            console.error('Error saving credit card details:', error);
         }
     };
 
+    const handleUserInfoSubmit = async (e) => {
+        e.preventDefault();
+        // Handle user information form submission logic here (e.g., saving user profile details)
+    };
+
     return (
-        <div className="flex items-start justify-start min-h-screen bg-gray-100" style={{ "marginTop": "3.5rem" }}>
+        <div className="flex items-start justify-start min-h-screen bg-gray-100" style={{ marginTop: '3.5rem' }}>
             <div className="w-full flex space-x-8 p-10">
                 {/* User Information Section */}
                 <div className="w-1/2 rounded-lg text-start bg-white p-10">
                     <h2 className="text-2xl font-bold mb-6">User Information</h2>
-                    <form>
-                        {/* Form fields for user information (unchanged) */}
+                    <form onSubmit={handleUserInfoSubmit}>
+                        {/* First Name */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+                                First Name
+                            </label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                value={userInfo.firstName}
+                                onChange={handleUserInfoChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                placeholder="Enter first name"
+                            />
+                        </div>
+
+                        {/* Last Name */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
+                                Last Name
+                            </label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                value={userInfo.lastName}
+                                onChange={handleUserInfoChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                placeholder="Enter last name"
+                            />
+                        </div>
+
+                        {/* Email */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={userInfo.email}
+                                onChange={handleUserInfoChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                placeholder="Enter email address"
+                            />
+                        </div>
+
+                        {/* Role */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+                                Role
+                            </label>
+                            <input
+                                type="text"
+                                id="role"
+                                name="role"
+                                value={userInfo.role}
+                                onChange={handleUserInfoChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                placeholder="Enter role"
+                            />
+                        </div>
+
+                        {/* Country */}
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="country">
+                                Country
+                            </label>
+                            <input
+                                type="text"
+                                id="country"
+                                name="country"
+                                value={userInfo.country}
+                                onChange={handleUserInfoChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                placeholder="Enter country"
+                            />
+                        </div>
+
+                            {/* Password
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={userInfo.password}
+                                    onChange={handleUserInfoChange}
+                                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter password"
+                                />
+                            </div> */}
+
+                        <div className="mt-6">
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200"
+                            >
+                                Save Information
+                            </button>
+                        </div>
                     </form>
                 </div>
 
                 {/* Payment Information Section */}
                 <div className="w-1/2 rounded-lg text-start bg-white p-10">
                     <h2 className="text-2xl font-bold mb-6">Payment Information</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleCreditCardSubmit}>
                         <div className="relative z-0 w-full mb-5 group">
                             <input
                                 type="text"
-                                name="floating_card_number"
-                                id="floating_card_number"
+                                name="cardNumber"
+                                id="cardNumber"
                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                                 value={cardNumber}
@@ -78,17 +243,18 @@ const UserSettings = () => {
                                 required
                             />
                             <label
-                                htmlFor="floating_card_number"
+                                htmlFor="cardNumber"
                                 className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Card Number
                             </label>
                         </div>
+
                         <div className="relative z-0 w-full mb-5 group">
                             <input
                                 type="text"
-                                name="floating_card_name"
-                                id="floating_card_name"
+                                name="cardName"
+                                id="cardName"
                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                                 value={cardName}
@@ -96,61 +262,64 @@ const UserSettings = () => {
                                 required
                             />
                             <label
-                                htmlFor="floating_card_name"
+                                htmlFor="cardName"
                                 className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
-                                Name on Card
+                                Card Holder Name
                             </label>
                         </div>
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                            <div className="relative z-0 w-full mb-5 group">
-                                <input
-                                    type="text"
-                                    name="floating_expiry_date"
-                                    id="floating_expiry_date"
-                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=""
-                                    value={expiryDate}
-                                    onChange={(e) => setExpiryDate(e.target.value)}
-                                    required
-                                />
-                                <label
-                                    htmlFor="floating_expiry_date"
-                                    className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >
-                                    Expiry Date (MM/YY)
-                                </label>
-                            </div>
-                            <div className="relative z-0 w-full mb-5 group">
-                                <input
-                                    type="password"
-                                    name="floating_cvv"
-                                    id="floating_cvv"
-                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=""
-                                    value={cvv}
-                                    onChange={(e) => setCvv(e.target.value)}
-                                    required
-                                />
-                                <label
-                                    htmlFor="floating_cvv"
-                                    className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >
-                                    CVV
-                                </label>
-                            </div>
+
+                        <div className="relative z-0 w-full mb-5 group">
+                            <input
+                                type="text"
+                                name="expiryDate"
+                                id="expiryDate"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" "
+                                value={expiryDate}
+                                onChange={(e) => setExpiryDate(e.target.value)}
+                                required
+                            />
+                            <label
+                                htmlFor="expiryDate"
+                                className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                                Expiry Date
+                            </label>
                         </div>
-                        <button
-                            type="submit"
-                            className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                        >
-                            Submit
-                        </button>
+
+                        <div className="relative z-0 w-full mb-5 group">
+                            <input
+                                type="text"
+                                name="cvv"
+                                id="cvv"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" "
+                                value={cvv}
+                                onChange={(e) => setCvv(e.target.value)}
+                                required
+                            />
+                            <label
+                                htmlFor="cvv"
+                                className="absolute text-sm text-gray-500 transform -translate-y-6 scale-75 top-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                                CVV
+                            </label>
+                        </div>
+
+                        <div className="mt-6">
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200"
+                            >
+                                Save Payment Details
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default UserSettings;

@@ -35,7 +35,7 @@ const CreateProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    try { 
+    try {
       console.log("Sending request with profile data:", profile); // Debugging line
       const response = await fetch('http://localhost:8082/api/Profile/createProfile', {
         method: 'POST',
@@ -60,7 +60,18 @@ const CreateProfile = () => {
   
         if (updateRoleResponse.ok) {
           alert('Profile created and role updated to Freelancer successfully!');
-          sessionStorage.setItem('userProfile', JSON.stringify(profile));
+          
+          // Save profile data in session storage with the exact field names
+          const profileDataToSave = {
+            id: responseData.id,
+            userId: responseData.userId,
+            firstName: responseData.firstName,
+            lastName: responseData.lastName,
+            bio: responseData.bio,
+            skills: responseData.skills,
+            experience: responseData.experience,
+          };
+          sessionStorage.setItem('userProfile', JSON.stringify(profileDataToSave));
         } else {
           alert('Profile created, but failed to update role.');
         }
@@ -71,6 +82,7 @@ const CreateProfile = () => {
       alert('An error occurred. Please try again.');
     }
   };
+  
   
 
   return (

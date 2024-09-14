@@ -15,12 +15,12 @@ const Form = ({ onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!title || !miniDescription || !description || !category || !price || !coverImage) {
       setError('Please fill all required fields.');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('miniDescription', miniDescription);
@@ -28,20 +28,21 @@ const Form = ({ onSuccess }) => {
     formData.append('category', category);
     formData.append('price', price);
     formData.append('coverImage', coverImage);
-  
-    if (userProfile && userProfile.userId) {
-      formData.append('freelancerId', userProfile.userId); 
+
+    // Instead of checking userProfile.userId, check userProfile.id
+    if (userProfile && userProfile.id) {
+      formData.append('freelancerId', userProfile.id);  // Using the correct 'id'
     } else {
       setError('User profile is missing.');
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:8083/api/ListService/create', {
         method: 'POST',
         body: formData,
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         console.log('Service created successfully:', result);
@@ -55,7 +56,8 @@ const Form = ({ onSuccess }) => {
       console.error('Error during form submission:', error);
       setError('An unexpected error occurred. Please try again.');
     }
-  };
+};
+
   
 
   return (

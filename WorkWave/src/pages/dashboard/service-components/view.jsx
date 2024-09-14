@@ -10,7 +10,7 @@ const View = ({ onButtonClick, onsingleClick }) => {
         const userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
 
         if (userProfile && userProfile.userId) {
-          const response = await fetch(`http://localhost:8083/api/ListService/services/freelancer/${userProfile.userId}`);
+          const response = await fetch(`http://localhost:8083/api/ListService/services/freelancer/${userProfile.id}`);
           
           if (!response.ok) {
             throw new Error('Failed to fetch services');

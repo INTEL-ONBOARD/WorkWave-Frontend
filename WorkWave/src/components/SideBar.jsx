@@ -18,7 +18,7 @@ const Sidebar = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:8081/api/users/${userSession.id}`);
+        const response = await axios.get(`http://localhost:8081/api/users/user/${userSession.id}`);
         const userData = response.data;
         
 

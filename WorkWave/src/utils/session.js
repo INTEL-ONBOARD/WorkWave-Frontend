@@ -8,7 +8,11 @@ export const getUserSession = () => {
 };
 
 export const saveUserProfileSession = (profile) => {
-    sessionStorage.setItem('userProfile', JSON.stringify(profile));
+    const userProfile = {
+        ...profile,
+        id: profile.id,  // Ensure id is the correct profile id
+    };
+    sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
 };
 
 export const getUserProfileSession = () => {

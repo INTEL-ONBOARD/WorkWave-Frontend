@@ -1,4 +1,3 @@
-// CardDetail.js
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -10,16 +9,22 @@ const CardDetail = () => {
   const { title, imageSrc, text, price, authorName, description, id, freelancerId } = location.state || {};
   const [profile, setProfile] = useState(null);
 
+  // Log the freelancerId to see if it changes
+  console.log('freelancerId: ', freelancerId);
+
   // Fetch profile information using freelancerId
   useEffect(() => {
     const fetchProfile = async () => {
       if (freelancerId) {
+        console.log(`Fetching profile for freelancerId: ${freelancerId}`);
         try {
           const response = await fetch(`http://localhost:8082/api/Profile/${freelancerId}`);
+          console.log("Profile fetch response: ", response);
           if (!response.ok) {
             throw new Error('Failed to fetch profile information');
           }
           const data = await response.json();
+          console.log('Profile data:', data); // Log fetched profile data
           setProfile(data);
         } catch (error) {
           console.error('Error fetching profile:', error);
@@ -28,7 +33,7 @@ const CardDetail = () => {
     };
 
     fetchProfile();
-  }, [freelancerId]);
+  }, [freelancerId]); // Ensure this hook runs when freelancerId changes
 
   const handleOrderClick = () => {
     if (authorName) {
@@ -44,7 +49,7 @@ const CardDetail = () => {
       console.error('Author name is not available.');
     }
   };
-  
+
   const handleProfileClick = () => {
     if (freelancerId) {
       navigate(`/freelancer-profile`, { state: { freelancerId } });
@@ -56,13 +61,12 @@ const CardDetail = () => {
       <Breadcrumbs />
       <h1 className="text-2xl font-bold text-center mb-6">{title || 'Default Title'}</h1>
       <div className="flex flex-col items-center mb-8">
-      <img
-  src={imageSrc || 'https://via.placeholder.com/600x300'}
-  alt={title}
-  className="rounded-2xl shadow-md w-full mb-4"
-  style={{ height: '400px', objectFit: 'cover' }} // Adjust height and fit
-/>
-
+        <img
+          src={imageSrc || 'https://via.placeholder.com/600x300'}
+          alt={title}
+          className="rounded-2xl shadow-md w-full mb-4"
+          style={{ height: '400px', objectFit: 'cover' }} // Adjust height and fit
+        />
 
         <h2 className="text-lg font-semibold mb-2 self-start">Service Cost</h2>
 
